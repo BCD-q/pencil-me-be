@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.17'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'com.google.cloud.tools.jib' version '3.4.0'
 }
 
 group = 'com.bcdq'
@@ -14,6 +15,29 @@ java {
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
+	}
+}
+
+jib {
+	to {
+		image = "justuser0129/pencilme-be"
+		tags = [ "latest" ]
+		auth {
+			username = DockerUsername
+			password = DockerPassword
+		}
+	}
+	from {
+		image = "eclipse-temurin:11-jre"
+		auth {
+			username = DockerUsername
+			password = DockerPassword
+		}
+	}
+	container {
+		creationTime = "USE_CURRENT_TIMESTAMP"
+		jvmFlags = ["-Xms128m", "-Xmx128m", '-Dfile.encoding=UTF-8']
+		ports = ['8080']
 	}
 }
 
