@@ -20,7 +20,7 @@ configurations {
 
 jib {
 	to {
-		image = "justuser0129/pencilme-be"
+		image = DockerContainerName
 		tags = [ "latest" ]
 		auth {
 			username = DockerUsername

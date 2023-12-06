@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.member.domain;
 
+import com.bcdq.pencilme.common.TimeStamped;
 import com.bcdq.pencilme.todo.domain.Todo;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Table(name = "member_tb")
-public class Member {
+public class Member extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

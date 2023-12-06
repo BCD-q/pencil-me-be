@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.todo.domain;
 
+import com.bcdq.pencilme.common.TimeStamped;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Table(name = "todo_tb")
-public class Todo {
+public class Todo extends TimeStamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
