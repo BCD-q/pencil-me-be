@@ -3,12 +3,12 @@
 <div align="center">
     <img src="https://avatars.githubusercontent.com/u/150117859?s=200&v=4" />
     <h1>Pencil me</h1>
-    <hr />
     <h3>개발자를 위한 생산성 도구 겸 할 일 관리 파트너 서비스</h3>
     <h3>AI를 이용한 할 일 등록 | 할 일 기록 기반 컨텐츠 추천 | Chrome Extension 연동</h3>
 </div>
 
 ---
+## Database ERD
 
 ## API Response Format
 
@@ -69,7 +69,9 @@
 ---
 
 ## Contributors
-|김원정|이주원|
-|:-:|:-:|
-|<a href="https://github.com/NARUBROWN"><img src="https://avatars.githubusercontent.com/u/38902021?v=4" width=120></a>|<a href="https://github.com/Juser0"><img src="https://avatars.githubusercontent.com/u/108407945?v=4" width=120></a>|
-|[@NARUBROWN](https://github.com/NARUBROWN)|[@Juser0](https://github.com/Juser0)|
+<div align="center">
+    |김원정|이주원|
+    |:-:|:-:|
+    |<a href="https://github.com/NARUBROWN"><img src="https://avatars.githubusercontent.com/u/38902021?v=4" width=120></a>|<a href="https://github.com/Juser0"><img src="https://avatars.githubusercontent.com/u/108407945?v=4" width=120></a>|
+    |[@NARUBROWN](https://github.com/NARUBROWN)|[@Juser0](https://github.com/Juser0)|
+</div>
