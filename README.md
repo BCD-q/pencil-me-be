@@ -49,6 +49,7 @@
 ---
 
 ## Architecture
+![](https://github.com/BCD-q/pencil-me-be/assets/108407945/a760ce6f-f996-42ff-9889-fad35fc97055)
 
 ---
 
@@ -69,9 +70,7 @@
 ---
 
 ## Contributors
-<div align="center">
-    |김원정|이주원|
-    |:-:|:-:|
-    |<a href="https://github.com/NARUBROWN"><img src="https://avatars.githubusercontent.com/u/38902021?v=4" width=120></a>|<a href="https://github.com/Juser0"><img src="https://avatars.githubusercontent.com/u/108407945?v=4" width=120></a>|
-    |[@NARUBROWN](https://github.com/NARUBROWN)|[@Juser0](https://github.com/Juser0)|
-</div>
+|김원정|이주원|
+|:-:|:-:|
+|<a href="https://github.com/NARUBROWN"><img src="https://avatars.githubusercontent.com/u/38902021?v=4" width=120></a>|<a href="https://github.com/Juser0"><img src="https://avatars.githubusercontent.com/u/108407945?v=4" width=120></a>|
+|[@NARUBROWN](https://github.com/NARUBROWN)|[@Juser0](https://github.com/Juser0)|
