@@ -3,6 +3,7 @@ package com.bcdq.pencilme.category.domain;
 import com.bcdq.pencilme.common.BaseTimeEntity;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,11 @@ public class Category extends BaseTimeEntity {
     private Member member;
 
     private String name;
+
+    @Builder
+    public Category(Long id, Member member, String name) {
+        this.id = id;
+        this.member = member;
+        this.name = name;
+    }
 }

@@ -19,14 +19,16 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static CommonResponse from (final String responseCode) {
+    public static CommonResponse of (final String responseCode, final String responseMessage) {
         return CommonResponse.builder()
                 .responseCode(responseCode)
+                .responseMessage(responseMessage)
                 .build();
     }
-    public static <T> CommonResponse<T> of (final String responseCode, final T data) {
+    public static <T> CommonResponse<T> of (final String responseCode, final String responseMessage, final T data) {
         return CommonResponse.<T>builder()
                 .responseCode(responseCode)
+                .responseMessage(responseMessage)
                 .data(data)
                 .build();
     }
