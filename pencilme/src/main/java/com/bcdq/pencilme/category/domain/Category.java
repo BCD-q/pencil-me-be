@@ -1,6 +1,7 @@
-package com.bcdq.pencilme.member.domain;
+package com.bcdq.pencilme.category.domain;
 
 import com.bcdq.pencilme.common.BaseTimeEntity;
+import com.bcdq.pencilme.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,14 +11,14 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseTimeEntity {
+public class Category extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String uid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
-    private String password;
-
-    private String nickname;
+    private String name;
 }

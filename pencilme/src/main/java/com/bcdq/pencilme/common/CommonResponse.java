@@ -1,18 +1,18 @@
 package com.bcdq.pencilme.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommonResponse<T> {
 
     private String responseCode;
     private String responseMessage;
     private T data;
 
-    @Builder
+    @Builder(access = AccessLevel.PRIVATE)
     private CommonResponse(String responseCode, String responseMessage, T data) {
         this.responseCode = responseCode;
         this.responseMessage = responseMessage;
@@ -24,7 +24,7 @@ public class CommonResponse<T> {
                 .responseCode(responseCode)
                 .build();
     }
-    public static <T> CommonResponse<T> from (final String responseCode, final T data) {
+    public static <T> CommonResponse<T> of (final String responseCode, final T data) {
         return CommonResponse.<T>builder()
                 .responseCode(responseCode)
                 .data(data)
