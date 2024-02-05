@@ -1,8 +1,8 @@
-package com.bcdq.pencilme.ai.service;
+package com.bcdq.pencilme.communicator.service;
 
-import com.bcdq.pencilme.ai.domain.dto.request.AITodoApiRequest;
-import com.bcdq.pencilme.ai.domain.dto.request.AITodoRequest;
-import com.bcdq.pencilme.ai.domain.dto.response.AITodoResponse;
+import com.bcdq.pencilme.communicator.dto.request.CommunicateTodoRequest;
+import com.bcdq.pencilme.communicator.dto.request.TodoRequest;
+import com.bcdq.pencilme.communicator.dto.response.CommunicateTodoResponse;
 import com.bcdq.pencilme.member.domain.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class AIService {
+public class CommunicateTodoService {
     private final WebClient.Builder webClientBuilder;
     private final ObjectMapper objectMapper;
 
@@ -26,14 +26,14 @@ public class AIService {
     @Value("{aiServer.endpoint}")
     private String endpoint;
 
-    public AITodoResponse createTodo(AITodoRequest aiRequest, Member currentMember) throws JsonProcessingException {
-        AITodoApiRequest todoApiRequest = AITodoApiRequest.of(aiRequest, currentMember);
+    public CommunicateTodoResponse createTodo(TodoRequest aiRequest, Member currentMember) throws JsonProcessingException {
+        CommunicateTodoRequest todoApiRequest = CommunicateTodoRequest.of(aiRequest, currentMember);
         String res = postAPI(baseurl, endpoint, todoApiRequest);
-        AITodoResponse aiResponse = parseJson(res);
+        CommunicateTodoResponse aiResponse = parseJson(res);
         return aiResponse;
     }
 
-    private AITodoResponse parseJson(String response) throws JsonProcessingException {
+    private CommunicateTodoResponse parseJson(String response) throws JsonProcessingException {
         JsonNode result = objectMapper.readTree(response).get("result");
         Long memberId = Long.parseLong(parseText(result, "memberId"));
         Long categoryId = Long.parseLong(parseText(result, "categoryId"));
@@ -41,7 +41,7 @@ public class AIService {
         String contents = parseText(result, "contents");
         LocalDateTime deadline = LocalDateTime.parse(parseText(result, "deadline"));
 
-        return AITodoResponse.builder()
+        return CommunicateTodoResponse.builder()
                 .memberId(memberId)
                 .categoryId(categoryId)
                 .title(title)

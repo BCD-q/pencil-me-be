@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.category.domain.dto.request;
+package com.bcdq.pencilme.category.dto.request;
 
 import com.bcdq.pencilme.category.domain.Category;
 import com.bcdq.pencilme.member.domain.Member;

@@ -1,8 +1,8 @@
 package com.bcdq.pencilme.category.service;
 
 import com.bcdq.pencilme.category.domain.Category;
-import com.bcdq.pencilme.category.domain.dto.request.CreateCategoryRequest;
-import com.bcdq.pencilme.category.domain.dto.response.CategoryResponse;
+import com.bcdq.pencilme.category.dto.request.CreateCategoryRequest;
+import com.bcdq.pencilme.category.dto.response.CategoryResponse;
 import com.bcdq.pencilme.category.repository.CategoryRepository;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.RequiredArgsConstructor;

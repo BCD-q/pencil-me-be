@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.ai.domain.dto.response;
+package com.bcdq.pencilme.communicator.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class AITodoResponse {
+public class CommunicateTodoResponse {
     private Long memberId;
     private Long categoryId;
     private String title;
@@ -14,7 +14,7 @@ public class AITodoResponse {
     private LocalDateTime deadline;
 
     @Builder
-    public AITodoResponse(Long memberId, Long categoryId, String title, String contents, LocalDateTime deadline) {
+    public CommunicateTodoResponse(Long memberId, Long categoryId, String title, String contents, LocalDateTime deadline) {
         this.memberId = memberId;
         this.categoryId = categoryId;
         this.title = title;

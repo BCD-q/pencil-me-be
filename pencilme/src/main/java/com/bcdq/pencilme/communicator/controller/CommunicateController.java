@@ -1,8 +1,8 @@
-package com.bcdq.pencilme.ai.controller;
+package com.bcdq.pencilme.communicator.controller;
 
-import com.bcdq.pencilme.ai.domain.dto.request.AITodoRequest;
-import com.bcdq.pencilme.ai.domain.dto.response.AITodoResponse;
-import com.bcdq.pencilme.ai.service.AIService;
+import com.bcdq.pencilme.communicator.dto.request.TodoRequest;
+import com.bcdq.pencilme.communicator.dto.response.CommunicateTodoResponse;
+import com.bcdq.pencilme.communicator.service.CommunicateTodoService;
 import com.bcdq.pencilme.common.CommonResponse;
 import com.bcdq.pencilme.member.domain.Member;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class AIController {
-    private final AIService aiService;
+public class CommunicateController {
+    private final CommunicateTodoService aiService;
 
     @PostMapping("/v1/language")
     @Operation(summary = "일정 등록 요청", description = "일정 등록을 위해 AI Server에 전송할 할 일을 입력해주세요")
-    public ResponseEntity<CommonResponse<?>> requestTodo(@RequestBody AITodoRequest aiRequest) throws JsonProcessingException {
+    public ResponseEntity<CommonResponse<?>> requestTodo(@RequestBody TodoRequest aiRequest) throws JsonProcessingException {
         /*
             현재 로그인 한 사용자의 식별자 값을 기반으로 진행 - AuthenticationPrincipal
             @AuthenticationPrincipal Member currentMember 추가 예정
@@ -36,7 +36,7 @@ public class AIController {
                 .nickname("테스터")
                 .build();
 
-        AITodoResponse aiResponse = aiService.createTodo(aiRequest, currentMember);
+        CommunicateTodoResponse aiResponse = aiService.createTodo(aiRequest, currentMember);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(CommonResponse.of("일정 등록 요청 완료", "AI_REQUEST_SENT", aiResponse));
     }

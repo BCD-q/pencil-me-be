@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.ai.domain.dto.request;
+package com.bcdq.pencilme.communicator.dto.request;
 
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Getter
-public class AITodoApiRequest {
+public class CommunicateTodoRequest {
     @NotBlank
     private Long memberId;
 
@@ -25,7 +25,7 @@ public class AITodoApiRequest {
     private LocalDateTime requestedDate;
 
     @Builder
-    private AITodoApiRequest(Long memberId, String memberName, String memberEmail, String memberStatement, LocalDateTime requestedDate) {
+    private CommunicateTodoRequest(Long memberId, String memberName, String memberEmail, String memberStatement, LocalDateTime requestedDate) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberEmail = memberEmail;
@@ -33,8 +33,8 @@ public class AITodoApiRequest {
         this.requestedDate = requestedDate;
     }
 
-    public static AITodoApiRequest of(AITodoRequest aiTodoRequest, Member member) {
-        return AITodoApiRequest.builder()
+    public static CommunicateTodoRequest of(TodoRequest aiTodoRequest, Member member) {
+        return CommunicateTodoRequest.builder()
                 .memberId(member.getId())
                 .memberName(member.getNickname())
                 .memberEmail(member.getEmail())

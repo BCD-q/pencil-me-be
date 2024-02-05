@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.category.domain.dto.response;
+package com.bcdq.pencilme.category.dto.response;
 
 import com.bcdq.pencilme.category.domain.Category;
 import lombok.Builder;
