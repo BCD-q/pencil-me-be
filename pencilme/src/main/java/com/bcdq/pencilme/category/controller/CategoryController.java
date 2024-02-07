@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.category.controller;
 
 import com.bcdq.pencilme.category.dto.request.CreateCategoryRequest;
+import com.bcdq.pencilme.category.dto.request.UpdateCategoryRequest;
 import com.bcdq.pencilme.category.dto.response.CategoryResponse;
 import com.bcdq.pencilme.category.service.CategoryService;
 import com.bcdq.pencilme.common.CommonResponse;
@@ -10,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.bcdq.pencilme.common.ResponseType.*;
 
 /**
  * 카테고리 관련 Controller
- * 카테고리 조회(1개, 전체), 추가, 수정, 삭제 요청
+ * 카테고리 조회(단건, 전체), 추가, 수정, 삭제 요청
  *
  * @author Juwon Lee
  */
@@ -28,12 +31,12 @@ public class CategoryController {
      * POST /api/v1/categories
      * 카테고리 생성 메서드
      *
-     * @param createCategoryRequest
-     * @return CommonResponseDto<CategoryResponse>
+     * @param createCategoryRequest 생성할 카테고리의 내용을 담은 요청 DTO
+     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @PostMapping("/v1/categories")
     @Operation(summary = "카테고리 생성", description = "할 일의 필수 요소인 카테고리를 생성합니다")
-    public ResponseEntity<CommonResponse<CategoryResponse>> addCategory(@RequestBody CreateCategoryRequest createCategoryRequest) {
+    public ResponseEntity<CommonResponse<CategoryResponse>> addCategory(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
         /*
             현재 로그인 한 사용자의 식별자 값을 기반으로 진행 - AuthenticationPrincipal
             @AuthenticationPrincipal Member currentMember 추가 예정
@@ -55,8 +58,8 @@ public class CategoryController {
      * GET /api/v1/categories/:categoryId
      * 카테고리 단건 조회 메서드
      *
-     * @param categoryId
-     * @return CommonResponseDto<CategoryResponse>
+     * @param categoryId 조회할 카테고리의 id 값
+     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @GetMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 단건 조회", description = "할 일에 대한 카테고리를 조회합니다")
@@ -70,8 +73,7 @@ public class CategoryController {
      * GET /api/v1/categories
      * 카테고리 전체 조회 메서드
      *
-     * @param
-     * @return CommonResponseDto<CategoryResponse>
+     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @GetMapping("/v1/categories")
     @Operation(summary = "카테고리 전체 조회", description = "할 일에 대한 모든 카테고리를 조회합니다")
@@ -85,12 +87,13 @@ public class CategoryController {
      * PATCH /api/v1/categories/:categoryId
      * 카테고리 수정 메서드
      *
-     * @param categoryId
-     * @return CommonResponseDto<CategoryResponse>
+     * @param categoryId 수정할 카테고리의 id 값
+     * @param updateCategoryRequest 수정할 카테고리의 내용을 담은 요청 DTO
+     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @PatchMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 수정", description = "할 일에 대한 카테고리의 내용을 수정합니다. 카테고리명을 수정할 수 있습니다.")
-    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId) {
+    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @Valid UpdateCategoryRequest updateCategoryRequest) {
         CategoryResponse categoryResponse = null;
         return ResponseEntity.status(카테고리수정.getStatus())
                 .body(CommonResponse.of(카테고리수정.getResponseCode(), 카테고리수정.getResponseMessage(), categoryResponse));
@@ -100,14 +103,14 @@ public class CategoryController {
      * DELETE /api/v1/categories/:categoryId
      * 카테고리 삭제 메서드
      *
-     * @param categoryId
-     * @return CommonResponseDto<CategoryResponse>
+     * @param categoryId 삭제할 카테고리의 id 값
+     * @return CommonResponseDto 기본 응답
      */
     @DeleteMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 삭제", description = "할 일에 대한 카테고리를 삭제합니다")
-    public ResponseEntity<CommonResponse<CategoryResponse>> removeCategory(@PathVariable("categoryId") Long categoryId) {
+    public ResponseEntity<CommonResponse<?>> removeCategory(@PathVariable("categoryId") Long categoryId) {
         CategoryResponse categoryResponse = null;
         return ResponseEntity.status(카테고리삭제.getStatus())
-                .body(CommonResponse.of(카테고리삭제.getResponseCode(), 카테고리삭제.getResponseMessage(), categoryResponse));
+                .body(CommonResponse.of(카테고리삭제.getResponseCode(), 카테고리삭제.getResponseMessage()));
     }
 }

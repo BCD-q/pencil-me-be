@@ -19,6 +19,12 @@ public class CategoryResponse {
         this.categoryName = categoryName;
     }
 
+    /**
+     * 카테고리 응답 DTO 생성을 위한 정적 팩터리 메서드
+     *
+     * @param category 카테고리 인스턴스
+     * @return CategoryResponse 카테고리 응답 DTO 인스턴스
+     */
     public static CategoryResponse from(Category category) {
         return CategoryResponse.builder()
                 .categoryId(category.getId())

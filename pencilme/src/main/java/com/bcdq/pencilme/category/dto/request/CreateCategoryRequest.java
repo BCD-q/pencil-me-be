@@ -14,9 +14,16 @@ import javax.validation.constraints.NotBlank;
 public class CreateCategoryRequest {
 
     @NotBlank
-    @Schema(description = "카테고리의 이름을 입력해주세요", example = "Computer Science")
+    @Schema(description = "생성할 카테고리의 이름", nullable = false, example = "Computer Science")
     private String name;
 
+    /**
+     * 카테고리 생성을 위한 정적 팩터리 메서드
+     *
+     * @param createCategoryRequest 생성할 카테고리의 내용을 담은 요청 DTO
+     * @param member 현재 사용자 정보
+     * @return Category 카테고리 인스턴스
+     */
     public static Category toEntity(CreateCategoryRequest createCategoryRequest, Member member) {
         return Category.builder()
                 .member(member)
