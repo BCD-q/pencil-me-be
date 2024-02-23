@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * Category Entity
+ * 카테고리 Entity
  *
  * @author Juwon Lee
  */

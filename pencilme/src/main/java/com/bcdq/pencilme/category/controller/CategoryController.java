@@ -94,7 +94,7 @@ public class CategoryController {
     @PatchMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 수정", description = "할 일에 대한 카테고리의 내용을 수정합니다. 카테고리명을 수정할 수 있습니다.")
     public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @Valid UpdateCategoryRequest updateCategoryRequest) {
-        CategoryResponse categoryResponse = null;
+        CategoryResponse categoryResponse = categoryService.updateCategory(categoryId, updateCategoryRequest);
         return ResponseEntity.status(카테고리수정.getStatus())
                 .body(CommonResponse.of(카테고리수정.getResponseCode(), 카테고리수정.getResponseMessage(), categoryResponse));
     }
@@ -108,8 +108,8 @@ public class CategoryController {
      */
     @DeleteMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 삭제", description = "할 일에 대한 카테고리를 삭제합니다")
-    public ResponseEntity<CommonResponse<?>> removeCategory(@PathVariable("categoryId") Long categoryId) {
-        CategoryResponse categoryResponse = null;
+    public ResponseEntity<CommonResponse<String>> removeCategory(@PathVariable("categoryId") Long categoryId) {
+        categoryService.deleteCategory(categoryId);
         return ResponseEntity.status(카테고리삭제.getStatus())
                 .body(CommonResponse.of(카테고리삭제.getResponseCode(), 카테고리삭제.getResponseMessage()));
     }

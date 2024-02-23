@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 카테고리 관련 Service
@@ -52,7 +53,9 @@ public class CategoryService {
      * @return List<CategoryResponse> 카테고리 응답 DTO를 담은 List
      */
     public List<CategoryResponse> readCategoryList() {
-       return null;
+        return categoryRepository.findAll().stream()
+                .map(CategoryResponse::from)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -63,7 +66,9 @@ public class CategoryService {
      * @return CategoryResponse 카테고리 응답 DTO
      */
     public CategoryResponse updateCategory(Long categoryId, UpdateCategoryRequest updateCategoryRequest) {
-        return null;
+        Category category = findById(categoryId);
+        category.updateCategory(updateCategoryRequest.getName());
+        return CategoryResponse.from(category);
     }
 
     /**

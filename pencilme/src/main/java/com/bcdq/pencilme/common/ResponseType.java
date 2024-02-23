@@ -2,6 +2,12 @@ package com.bcdq.pencilme.common;
 
 import lombok.Getter;
 
+/**
+ * 응답 정의 enum
+ * 도메인에 대한 정상, 예외 응답 정의
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public enum ResponseType {
 
@@ -28,7 +34,7 @@ public enum ResponseType {
     private final String responseCode;
     private final String responseMessage;
 
-    private ResponseType(int status, String responseCode, String responseMessage) {
+    ResponseType(int status, String responseCode, String responseMessage) {
         this.status = status;
         this.responseCode = responseCode;
         this.responseMessage = responseMessage;

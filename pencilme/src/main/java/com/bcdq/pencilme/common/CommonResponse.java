@@ -18,14 +18,14 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static <T> CommonResponse<T> of (final String responseCode, final String responseMessage) {
-        return CommonResponse.<T>builder()
+    public static CommonResponse<String> of(String responseCode, String responseMessage) {
+        return CommonResponse.<String>builder()
                 .responseCode(responseCode)
                 .responseMessage(responseMessage)
-                .data(null)
+                .data("")
                 .build();
     }
-    public static <T> CommonResponse<T> of (final String responseCode, final String responseMessage, final T data) {
+    public static <T> CommonResponse<T> of (String responseCode, String responseMessage, T data) {
         return CommonResponse.<T>builder()
                 .responseCode(responseCode)
                 .responseMessage(responseMessage)

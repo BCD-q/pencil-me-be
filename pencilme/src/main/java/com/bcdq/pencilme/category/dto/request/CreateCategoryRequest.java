@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * 카테고리 생성 요청을 위한 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CreateCategoryRequest {

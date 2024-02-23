@@ -33,12 +33,12 @@ public class CommunicateTodoRequest {
         this.requestedDate = requestedDate;
     }
 
-    public static CommunicateTodoRequest of(TodoRequest aiTodoRequest, Member member) {
+    public static CommunicateTodoRequest of(TodoRequest todoRequest, Member member) {
         return CommunicateTodoRequest.builder()
                 .memberId(member.getId())
                 .memberName(member.getNickname())
                 .memberEmail(member.getEmail())
-                .memberStatement(aiTodoRequest.getUserStatement())
+                .memberStatement(todoRequest.getMemberDialog())
                 .requestedDate(LocalDateTime.now())
                 .build();
     }

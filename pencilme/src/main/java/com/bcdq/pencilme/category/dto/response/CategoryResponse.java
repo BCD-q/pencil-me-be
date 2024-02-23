@@ -4,6 +4,11 @@ import com.bcdq.pencilme.category.domain.Category;
 import lombok.Builder;
 import lombok.Getter;
 
+/**
+ * 카테고리 응답 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public class CategoryResponse {
     private Long categoryId;
