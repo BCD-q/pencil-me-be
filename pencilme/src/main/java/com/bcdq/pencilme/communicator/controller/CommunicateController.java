@@ -50,7 +50,6 @@ public class CommunicateController {
                 .build();
 
         CommunicateTodoResponse communicateTodoResponse = communicateTodoService.createTodo(todoRequest, currentMember);
-        return ResponseEntity.status(할일등록요청완료.getStatus())
-                .body(CommonResponse.of(할일등록요청완료, communicateTodoResponse));
+        return CommonResponse.of(할일등록요청완료, communicateTodoResponse);
     }
 }

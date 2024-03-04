@@ -52,8 +52,7 @@ public class CategoryController {
                 .build();
 
         CategoryResponse categoryResponse = categoryService.createCategory(createCategoryRequest, currentMember);
-        return ResponseEntity.status(카테고리생성.getStatus())
-                .body(CommonResponse.of(카테고리생성, categoryResponse));
+        return CommonResponse.of(카테고리생성, categoryResponse);
     }
 
     /**
@@ -67,8 +66,7 @@ public class CategoryController {
     @Operation(summary = "카테고리 단건 조회", description = "할 일에 대한 카테고리를 조회합니다")
     public ResponseEntity<CommonResponse<CategoryResponse>> getCategory(@PathVariable("categoryId") Long categoryId) {
         CategoryResponse categoryResponse = categoryService.readCategory(categoryId);
-        return ResponseEntity.status(카테고리조회.getStatus())
-                .body(CommonResponse.of(카테고리조회, categoryResponse));
+        return CommonResponse.of(카테고리조회, categoryResponse);
     }
 
     /**
@@ -81,8 +79,7 @@ public class CategoryController {
     @Operation(summary = "카테고리 전체 조회", description = "할 일에 대한 모든 카테고리를 조회합니다")
     public ResponseEntity<CommonResponse<List<CategoryResponse>>> getCategory() {
         List<CategoryResponse> categoryResponse = categoryService.readCategoryList();
-        return ResponseEntity.status(카테고리조회.getStatus())
-                .body(CommonResponse.of(카테고리조회, categoryResponse));
+        return CommonResponse.of(카테고리조회, categoryResponse);
     }
 
     /**
@@ -97,8 +94,7 @@ public class CategoryController {
     @Operation(summary = "카테고리 수정", description = "할 일에 대한 카테고리의 내용을 수정합니다. 카테고리명을 수정할 수 있습니다.")
     public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryId, updateCategoryRequest);
-        return ResponseEntity.status(카테고리수정.getStatus())
-                .body(CommonResponse.of(카테고리수정, categoryResponse));
+        return CommonResponse.of(카테고리수정, categoryResponse);
     }
 
     /**
@@ -112,7 +108,6 @@ public class CategoryController {
     @Operation(summary = "카테고리 삭제", description = "할 일에 대한 카테고리를 삭제합니다")
     public ResponseEntity<CommonResponse<String>> removeCategory(@PathVariable("categoryId") Long categoryId) {
         categoryService.deleteCategory(categoryId);
-        return ResponseEntity.status(카테고리삭제.getStatus())
-                .body(CommonResponse.from(카테고리삭제));
+        return CommonResponse.from(카테고리삭제);
     }
 }

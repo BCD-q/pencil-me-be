@@ -3,6 +3,7 @@ package com.bcdq.pencilme.common;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.http.ResponseEntity;
 
 @Getter
 public class CommonResponse<T> {
@@ -18,18 +19,21 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static CommonResponse<String> from(ResponseType responseType) {
-        return CommonResponse.<String>builder()
-                .responseCode(responseType.getResponseCode())
-                .responseMessage(responseType.getResponseMessage())
-                .data("")
-                .build();
+    public static ResponseEntity<CommonResponse<String>> from (ResponseType responseType) {
+        return ResponseEntity.status(responseType.getStatus())
+                .body(CommonResponse.<String>builder()
+                        .responseCode(responseType.getResponseCode())
+                        .responseMessage(responseType.getResponseMessage())
+                        .data("")
+                        .build());
     }
-    public static <T> CommonResponse<T> of (ResponseType responseType, T data) {
-        return CommonResponse.<T>builder()
-                .responseCode(responseType.getResponseCode())
-                .responseMessage(responseType.getResponseMessage())
-                .data(data)
-                .build();
+
+    public static <T> ResponseEntity<CommonResponse<T>> of (ResponseType responseType, T data) {
+        return ResponseEntity.status(responseType.getStatus())
+                .body(CommonResponse.<T>builder()
+                        .responseCode(responseType.getResponseCode())
+                        .responseMessage(responseType.getResponseMessage())
+                        .data(data)
+                        .build());
     }
 }
