@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static com.bcdq.pencilme.common.ResponseType.*;
 
 /**
@@ -32,7 +34,7 @@ public class CategoryController {
      * 카테고리 생성 메서드
      *
      * @param createCategoryRequest 생성할 카테고리의 내용을 담은 요청 DTO
-     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
+     * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @PostMapping("/v1/categories")
     @Operation(summary = "카테고리 생성", description = "할 일의 필수 요소인 카테고리를 생성합니다")
@@ -51,7 +53,7 @@ public class CategoryController {
 
         CategoryResponse categoryResponse = categoryService.createCategory(createCategoryRequest, currentMember);
         return ResponseEntity.status(카테고리생성.getStatus())
-                .body(CommonResponse.of(카테고리생성.getResponseCode(), 카테고리생성.getResponseMessage(), categoryResponse));
+                .body(CommonResponse.of(카테고리생성, categoryResponse));
     }
 
     /**
@@ -59,28 +61,28 @@ public class CategoryController {
      * 카테고리 단건 조회 메서드
      *
      * @param categoryId 조회할 카테고리의 id 값
-     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
+     * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @GetMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 단건 조회", description = "할 일에 대한 카테고리를 조회합니다")
     public ResponseEntity<CommonResponse<CategoryResponse>> getCategory(@PathVariable("categoryId") Long categoryId) {
-        CategoryResponse categoryResponse = null;
+        CategoryResponse categoryResponse = categoryService.readCategory(categoryId);
         return ResponseEntity.status(카테고리조회.getStatus())
-                .body(CommonResponse.of(카테고리조회.getResponseCode(), 카테고리조회.getResponseMessage(), categoryResponse));
+                .body(CommonResponse.of(카테고리조회, categoryResponse));
     }
 
     /**
      * GET /api/v1/categories
      * 카테고리 전체 조회 메서드
      *
-     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
+     * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @GetMapping("/v1/categories")
     @Operation(summary = "카테고리 전체 조회", description = "할 일에 대한 모든 카테고리를 조회합니다")
-    public ResponseEntity<CommonResponse<CategoryResponse>> getCategory() {
-        CategoryResponse categoryResponse = null;
+    public ResponseEntity<CommonResponse<List<CategoryResponse>>> getCategory() {
+        List<CategoryResponse> categoryResponse = categoryService.readCategoryList();
         return ResponseEntity.status(카테고리조회.getStatus())
-                .body(CommonResponse.of(카테고리조회.getResponseCode(), 카테고리조회.getResponseMessage(), categoryResponse));
+                .body(CommonResponse.of(카테고리조회, categoryResponse));
     }
 
     /**
@@ -89,14 +91,14 @@ public class CategoryController {
      *
      * @param categoryId 수정할 카테고리의 id 값
      * @param updateCategoryRequest 수정할 카테고리의 내용을 담은 요청 DTO
-     * @return CommonResponseDto<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
+     * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
     @PatchMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 수정", description = "할 일에 대한 카테고리의 내용을 수정합니다. 카테고리명을 수정할 수 있습니다.")
-    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @Valid UpdateCategoryRequest updateCategoryRequest) {
+    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryId, updateCategoryRequest);
         return ResponseEntity.status(카테고리수정.getStatus())
-                .body(CommonResponse.of(카테고리수정.getResponseCode(), 카테고리수정.getResponseMessage(), categoryResponse));
+                .body(CommonResponse.of(카테고리수정, categoryResponse));
     }
 
     /**
@@ -104,13 +106,13 @@ public class CategoryController {
      * 카테고리 삭제 메서드
      *
      * @param categoryId 삭제할 카테고리의 id 값
-     * @return CommonResponseDto 기본 응답
+     * @return CommonResponse 기본 응답
      */
     @DeleteMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 삭제", description = "할 일에 대한 카테고리를 삭제합니다")
     public ResponseEntity<CommonResponse<String>> removeCategory(@PathVariable("categoryId") Long categoryId) {
         categoryService.deleteCategory(categoryId);
         return ResponseEntity.status(카테고리삭제.getStatus())
-                .body(CommonResponse.of(카테고리삭제.getResponseCode(), 카테고리삭제.getResponseMessage()));
+                .body(CommonResponse.from(카테고리삭제));
     }
 }

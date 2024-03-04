@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * AI 서버를 통한 할 일 생성 요청을 담은 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TodoRequest {

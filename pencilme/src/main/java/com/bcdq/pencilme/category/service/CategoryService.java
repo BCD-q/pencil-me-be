@@ -68,6 +68,7 @@ public class CategoryService {
     public CategoryResponse updateCategory(Long categoryId, UpdateCategoryRequest updateCategoryRequest) {
         Category category = findById(categoryId);
         category.updateCategory(updateCategoryRequest.getName());
+        categoryRepository.save(category);
         return CategoryResponse.from(category);
     }
 

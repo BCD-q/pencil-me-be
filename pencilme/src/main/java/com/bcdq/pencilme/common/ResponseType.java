@@ -28,7 +28,10 @@ public enum ResponseType {
     할일생성(201, "TODOLIST_CREATED", "할 일 생성 완료"),
     할일조회(200, "TODOLIST_FOUND", "할 일 조회 완료"),
     할일수정(200, "TODOLIST_UPDATED", "할 일 수정 완료"),
-    할일삭제(200, "TODOLIST_DELETED", "할 일 삭제 완료");
+    할일삭제(200, "TODOLIST_DELETED", "할 일 삭제 완료"),
+
+    // Communicator
+    할일등록요청완료(201, "TODO_REQUEST_SENT", "일정 등록 요청 완료");
 
     private final int status;
     private final String responseCode;

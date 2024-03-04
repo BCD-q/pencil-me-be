@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
 		servers = {
-				@Server(url = "https://eb62-175-223-27-96.ngrok-free.app", description = "Server URL"),
+				@Server(url = "http://capstone.na2ru2.me", description = "Server URL"),
 				@Server(url = "http://localhost:8080",description = "Local URL")
 		}
 )

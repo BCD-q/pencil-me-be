@@ -5,6 +5,11 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ * AI 서버 요청을 통해 생성된 할 일 응답 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public class CommunicateTodoResponse {
     private Long memberId;

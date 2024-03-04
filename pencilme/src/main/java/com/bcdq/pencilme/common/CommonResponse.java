@@ -18,17 +18,17 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
-    public static CommonResponse<String> of(String responseCode, String responseMessage) {
+    public static CommonResponse<String> from(ResponseType responseType) {
         return CommonResponse.<String>builder()
-                .responseCode(responseCode)
-                .responseMessage(responseMessage)
+                .responseCode(responseType.getResponseCode())
+                .responseMessage(responseType.getResponseMessage())
                 .data("")
                 .build();
     }
-    public static <T> CommonResponse<T> of (String responseCode, String responseMessage, T data) {
+    public static <T> CommonResponse<T> of (ResponseType responseType, T data) {
         return CommonResponse.<T>builder()
-                .responseCode(responseCode)
-                .responseMessage(responseMessage)
+                .responseCode(responseType.getResponseCode())
+                .responseMessage(responseType.getResponseMessage())
                 .data(data)
                 .build();
     }

@@ -7,6 +7,11 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
+/**
+ * AI 서버에서 요구하는 형태의 할 일 생성 요청 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public class CommunicateTodoRequest {
     @NotBlank
@@ -33,6 +38,13 @@ public class CommunicateTodoRequest {
         this.requestedDate = requestedDate;
     }
 
+    /**
+     * AI 서버에서 요구하는 형태의 할 일 생성 요청 DTO 형태로 인스턴스화하는 정적 팩터리 메서드
+     *
+     * @param todoRequest 할 일 생성 요청을 담은 DTO
+     * @param member 현재 로그인 한 사용자
+     * @return CommunicateTodoRequest AI 서버에서 요구하는 형태의 할 일 생성 요청 DTO
+     */
     public static CommunicateTodoRequest of(TodoRequest todoRequest, Member member) {
         return CommunicateTodoRequest.builder()
                 .memberId(member.getId())
