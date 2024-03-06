@@ -27,7 +27,7 @@ public class CommunicateTodoRequest {
     private String memberStatement;
 
     @NotBlank
-    private LocalDateTime requestedDate;
+    private String requestedDate;
 
     @Builder
     private CommunicateTodoRequest(Long memberId, String memberName, String memberEmail, String memberStatement, LocalDateTime requestedDate) {
@@ -35,7 +35,7 @@ public class CommunicateTodoRequest {
         this.memberName = memberName;
         this.memberEmail = memberEmail;
         this.memberStatement = memberStatement;
-        this.requestedDate = requestedDate;
+        this.requestedDate = requestedDate.toString();
     }
 
     /**
