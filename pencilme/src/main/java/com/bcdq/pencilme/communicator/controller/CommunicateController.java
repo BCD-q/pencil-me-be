@@ -9,10 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.bcdq.pencilme.common.ResponseType.*;
 
@@ -22,6 +19,7 @@ import static com.bcdq.pencilme.common.ResponseType.*;
  *
  * @author Juwon Lee
  */
+@CrossOrigin // temp
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor

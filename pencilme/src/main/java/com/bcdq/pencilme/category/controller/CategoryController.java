@@ -23,6 +23,7 @@ import static com.bcdq.pencilme.common.ResponseType.*;
  *
  * @author Juwon Lee
  */
+@CrossOrigin // temp
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -73,7 +74,7 @@ public class CategoryController {
      * GET /api/v1/categories
      * 카테고리 전체 조회 메서드
      *
-     * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
+     * @return CommonResponse<List<CategoryResponse>> 기본 응답 + 카테고리 응답 DTO 리스트
      */
     @GetMapping("/v1/categories")
     @Operation(summary = "카테고리 전체 조회", description = "할 일에 대한 모든 카테고리를 조회합니다")
