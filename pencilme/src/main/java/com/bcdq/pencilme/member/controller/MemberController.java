@@ -66,13 +66,13 @@ public class MemberController {
     }
 
     /**
-     * PATCH /api/v1/members/:memberId
+     * PUT /api/v1/members/:memberId
      * 사용자 정보 수정 메서드
      *
      * @param memberId 수정할 사용자의 id값
      * @return CommonResponse<MemberResponse> 기본 응답 + 사용자 응답 DTO
      */
-    @PatchMapping("/v1/members/{memberId}")
+    @PutMapping("/v1/members/{memberId}")
     public ResponseEntity<CommonResponse<MemberResponse>> modifyMember(@PathVariable("memberId") Long memberId) {
         MemberResponse memberResponse = null;
         return CommonResponse.of(회원수정, memberResponse);

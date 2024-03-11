@@ -84,14 +84,14 @@ public class CategoryController {
     }
 
     /**
-     * PATCH /api/v1/categories/:categoryId
+     * PUT /api/v1/categories/:categoryId
      * 카테고리 수정 메서드
      *
      * @param categoryId 수정할 카테고리의 id 값
      * @param updateCategoryRequest 수정할 카테고리의 내용을 담은 요청 DTO
      * @return CommonResponse<CategoryResponse> 기본 응답 + 카테고리 응답 DTO
      */
-    @PatchMapping("/v1/categories/{categoryId}")
+    @PutMapping("/v1/categories/{categoryId}")
     @Operation(summary = "카테고리 수정", description = "할 일에 대한 카테고리의 내용을 수정합니다. 카테고리명을 수정할 수 있습니다.")
     public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryId, updateCategoryRequest);
