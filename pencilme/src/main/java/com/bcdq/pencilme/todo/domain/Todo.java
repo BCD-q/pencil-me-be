@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.todolist.domain;
+package com.bcdq.pencilme.todo.domain;
 
 import com.bcdq.pencilme.common.BaseTimeEntity;
 import com.bcdq.pencilme.category.domain.Category;
@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name = "todo_list")
+@Table(name = "todo")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Todolist extends BaseTimeEntity {
+public class Todo extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
