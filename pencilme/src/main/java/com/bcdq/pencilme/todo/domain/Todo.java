@@ -4,6 +4,7 @@ import com.bcdq.pencilme.common.BaseTimeEntity;
 import com.bcdq.pencilme.category.domain.Category;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,4 +35,21 @@ public class Todo extends BaseTimeEntity {
     private LocalDateTime deadline;
 
     private Boolean isFinished;
+
+    @Builder
+    public Todo(Category category, Member member, String title, String contents, LocalDateTime deadline, Boolean isFinished) {
+        this.category = category;
+        this.member = member;
+        this.title = title;
+        this.contents = contents;
+        this.deadline = deadline;
+        this.isFinished = isFinished;
+    }
+
+    public void updateTodo(String title, String contents, LocalDateTime deadline, Boolean isFinished) {
+        this.title = title;
+        this.contents = contents;
+        this.deadline = deadline;
+        this.isFinished = isFinished;
+    }
 }

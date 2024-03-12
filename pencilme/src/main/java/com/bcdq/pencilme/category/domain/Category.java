@@ -29,8 +29,7 @@ public class Category extends BaseTimeEntity {
     private String name;
 
     @Builder
-    public Category(Long id, Member member, String name) {
-        this.id = id;
+    public Category(Member member, String name) {
         this.member = member;
         this.name = name;
     }
@@ -39,7 +38,7 @@ public class Category extends BaseTimeEntity {
      * 카테고리 이름 업데이트 메서드
      * 카테고리에서 수정 가능한 값(카테고리 이름)을 수정합니다
      *
-     * @param name
+     * @param name 수정할 이름 값
      */
     public void updateCategory(String name) {
         this.name = name;
