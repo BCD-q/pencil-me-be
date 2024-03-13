@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.communicator.dto.response;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,14 +13,13 @@ import java.time.LocalDateTime;
  */
 @Getter
 public class CommunicateTodoResponse {
-    private Long memberId;
-    private Long categoryId;
-    private String title;
-    private String contents;
-    private LocalDateTime deadline;
+    private final Long memberId;
+    private final Long categoryId;
+    private final String title;
+    private final String contents;
+    private final LocalDateTime deadline;
 
-    @Builder
-    public CommunicateTodoResponse(Long memberId, Long categoryId, String title, String contents, LocalDateTime deadline) {
+    private CommunicateTodoResponse(Long memberId, Long categoryId, String title, String contents, LocalDateTime deadline) {
         this.memberId = memberId;
         this.categoryId = categoryId;
         this.title = title;

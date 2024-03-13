@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.category.dto.response;
 
 import com.bcdq.pencilme.category.domain.Category;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,13 +12,11 @@ import lombok.Getter;
  */
 @Getter
 public class CategoryResponse {
-    private Long categoryId;
+    private final Long categoryId;
+    private final Long memberId;
+    private final String categoryName;
 
-    private Long memberId;
-
-    private String categoryName;
-
-    @Builder
+    @Builder(access = AccessLevel.PRIVATE)
     private CategoryResponse(Long categoryId, Long memberId, String categoryName) {
         this.categoryId = categoryId;
         this.memberId = memberId;

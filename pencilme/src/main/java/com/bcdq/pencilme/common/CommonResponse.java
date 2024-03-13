@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class CommonResponse<T> {
 
-    private String responseCode;
-    private String responseMessage;
-    private T data;
+    private final String responseCode;
+    private final String responseMessage;
+    private final T data;
 
     @Builder(access = AccessLevel.PRIVATE)
     private CommonResponse(String responseCode, String responseMessage, T data) {

@@ -9,19 +9,13 @@ import java.time.LocalDateTime;
 
 @Getter
 public class TodoResponse {
-    private Long id;
-
-    private Long categoryId;
-
-    private Long memberId;
-
-    private String title;
-
-    private String contents;
-
-    private LocalDateTime deadline;
-
-    private Boolean isFinished;
+    private final Long id;
+    private final Long categoryId;
+    private final Long memberId;
+    private final String title;
+    private final String contents;
+    private final LocalDateTime deadline;
+    private final Boolean isFinished;
 
     @Builder(access = AccessLevel.PRIVATE)
     private TodoResponse(Long id, Long categoryId, Long memberId, String title, String contents, LocalDateTime deadline, Boolean isFinished) {
