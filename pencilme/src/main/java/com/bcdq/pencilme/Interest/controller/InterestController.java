@@ -6,10 +6,9 @@ import com.bcdq.pencilme.common.CommonResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +21,16 @@ public class InterestController {
             final @RequestBody InterestReqDto.CreateInterests createInterests
     ) {
         interestService.createInterests(createInterests);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                CommonResponse.of("", "", null)
+        );
+    }
+
+    @DeleteMapping("/v1/interest/{ids}")
+    public ResponseEntity<CommonResponse<Void>> deletingMultipleInterest(
+            final @PathVariable("ids") List<Long> ids
+    ) {
+        interestService.removeInterests(ids);
         return ResponseEntity.status(HttpStatus.OK).body(
                 CommonResponse.of("", "", null)
         );

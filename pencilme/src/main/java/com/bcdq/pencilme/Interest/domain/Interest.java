@@ -18,7 +18,7 @@ public class Interest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "keyword")
+    @Column(name = "keyword", unique = true)
     private String keyword;
 
     public Interest(String keyword) {
@@ -26,7 +26,7 @@ public class Interest {
     }
 
     public static List<Interest> createInterestDTOtoInterestList(InterestReqDto.CreateInterests interestDTO) {
-        return interestDTO.getInterest().stream()
+        return interestDTO.getInterests().stream()
                 .map(Interest::new)
                 .collect(Collectors.toList());
     }
