@@ -1,5 +1,6 @@
-package com.bcdq.pencilme.Interest.domain;
+package com.bcdq.pencilme.interest_mapping.domain;
 
+import com.bcdq.pencilme.interest.domain.Interest;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.AccessLevel;
 import lombok.Getter;

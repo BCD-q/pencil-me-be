@@ -1,6 +1,6 @@
-package com.bcdq.pencilme.Interest.service;
+package com.bcdq.pencilme.interest_mapping.service;
 
-import com.bcdq.pencilme.Interest.repository.InterestMappingRepository;
+import com.bcdq.pencilme.interest_mapping.repository.InterestMappingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class InterestMappingService {
     private final InterestMappingRepository interestMappingRepository;
+
+
 }

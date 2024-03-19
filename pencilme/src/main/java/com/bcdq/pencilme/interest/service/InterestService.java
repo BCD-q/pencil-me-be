@@ -1,9 +1,9 @@
-package com.bcdq.pencilme.Interest.service;
+package com.bcdq.pencilme.interest.service;
 
-import com.bcdq.pencilme.Interest.domain.Interest;
-import com.bcdq.pencilme.Interest.domain.dto.request.InterestReqDto;
-import com.bcdq.pencilme.Interest.domain.dto.response.InterestResDto;
-import com.bcdq.pencilme.Interest.repository.InterestRepository;
+import com.bcdq.pencilme.interest.domain.Interest;
+import com.bcdq.pencilme.interest.domain.dto.request.InterestReqDto;
+import com.bcdq.pencilme.interest.domain.dto.response.InterestResDto;
+import com.bcdq.pencilme.interest.repository.InterestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

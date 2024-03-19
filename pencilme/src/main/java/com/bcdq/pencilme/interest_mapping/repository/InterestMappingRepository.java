@@ -1,6 +1,6 @@
-package com.bcdq.pencilme.Interest.repository;
+package com.bcdq.pencilme.interest_mapping.repository;
 
-import com.bcdq.pencilme.Interest.domain.InterestMapping;
+import com.bcdq.pencilme.interest_mapping.domain.InterestMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

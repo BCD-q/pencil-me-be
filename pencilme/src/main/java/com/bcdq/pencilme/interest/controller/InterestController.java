@@ -1,8 +1,8 @@
-package com.bcdq.pencilme.Interest.controller;
+package com.bcdq.pencilme.interest.controller;
 
-import com.bcdq.pencilme.Interest.domain.dto.request.InterestReqDto;
-import com.bcdq.pencilme.Interest.domain.dto.response.InterestResDto;
-import com.bcdq.pencilme.Interest.service.InterestService;
+import com.bcdq.pencilme.interest.domain.dto.request.InterestReqDto;
+import com.bcdq.pencilme.interest.domain.dto.response.InterestResDto;
+import com.bcdq.pencilme.interest.service.InterestService;
 import com.bcdq.pencilme.common.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

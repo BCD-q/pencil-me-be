@@ -1,4 +1,4 @@
-package com.bcdq.pencilme.Interest.domain.dto.request;
+package com.bcdq.pencilme.interest.domain.dto.request;
 
 
 import lombok.Getter;
