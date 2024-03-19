@@ -14,22 +14,32 @@ import java.util.stream.Collectors;
 public class InterestService {
     private final InterestRepository interestRepository;
 
-    public void createInterests(InterestReqDto.CreateInterests interests) {
+    public List<Long> createInterests(InterestReqDto.CreateInterests interestsDto) {
         Set<String> dbKeyword = interestRepository.findAll()
                 .stream()
                 .map(Interest::getKeyword)
                 .collect(Collectors.toSet());
-        List<Interest> newInterest = interests.getInterests().stream()
+        List<Interest> newInterest = interestsDto.getKeywords().stream()
                 .filter(keyword -> !dbKeyword.contains(keyword))
                 .map(Interest::new)
                 .collect(Collectors.toList());
-        interestRepository.saveAll(newInterest);
+        List<Interest> result = interestRepository.saveAll(newInterest);
+        return result.stream()
+                .map(Interest::getId)
+                .collect(Collectors.toList());
     }
 
-    public void removeInterests(List<Long> ids) {
+    public Long modifyInterests(Long id, String keyword) {
+        Interest foundInterest = interestRepository.findById(id).orElseThrow(() -> new RuntimeException(""));
+        Interest result = interestRepository.save(foundInterest.updateKeywordByString(keyword));
+        return result.getId();
+    }
+
+    public List<Long> removeInterests(List<Long> ids) {
         List<Interest> foundList = interestRepository.findAll();
         List<Long> foundIdList = foundList.stream().map(Interest::getId).collect(Collectors.toList());
         ids.removeIf(id -> !foundIdList.contains(id));
         interestRepository.deleteAllById(ids);
+        return ids;
     }
 }

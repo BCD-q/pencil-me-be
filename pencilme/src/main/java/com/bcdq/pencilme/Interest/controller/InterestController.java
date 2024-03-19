@@ -17,22 +17,30 @@ public class InterestController {
     private final InterestService interestService;
 
     @PostMapping("/v1/interest")
-    public ResponseEntity<CommonResponse<Void>> creatingMultipleInterests(
+    public ResponseEntity<CommonResponse<List<Long>>> creatingMultipleInterests(
             final @RequestBody InterestReqDto.CreateInterests createInterests
     ) {
-        interestService.createInterests(createInterests);
         return ResponseEntity.status(HttpStatus.OK).body(
-                CommonResponse.of("", "", null)
+                CommonResponse.of("", "", interestService.createInterests(createInterests))
+        );
+    }
+
+    @PatchMapping("/v1/interest")
+    public ResponseEntity<CommonResponse<Long>> modifyingInterest(
+            final @RequestParam("id") Long id,
+            final @RequestParam("keyword") String keyword
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                CommonResponse.of("", "", interestService.modifyInterests(id, keyword))
         );
     }
 
     @DeleteMapping("/v1/interest/{ids}")
-    public ResponseEntity<CommonResponse<Void>> deletingMultipleInterest(
+    public ResponseEntity<CommonResponse<List<Long>>> deletingMultipleInterest(
             final @PathVariable("ids") List<Long> ids
     ) {
-        interestService.removeInterests(ids);
         return ResponseEntity.status(HttpStatus.OK).body(
-                CommonResponse.of("", "", null)
+                CommonResponse.of("", "", interestService.removeInterests(ids))
         );
     }
 
