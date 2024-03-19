@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.Interest.domain;
 
+import com.bcdq.pencilme.Interest.domain.dto.response.InterestResDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,12 @@ public class Interest {
     public Interest updateKeywordByString(String keyword) {
         this.keyword = keyword;
         return this;
+    }
+
+    public InterestResDto.findAllInterests createResponseDto() {
+        return InterestResDto.findAllInterests.builder()
+                .id(this.id)
+                .keyword(this.keyword)
+                .build();
     }
 }

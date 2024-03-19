@@ -1,5 +1,13 @@
 package com.bcdq.pencilme.Interest.domain.dto.response;
 
-public class InterestResDto {
+import lombok.Builder;
+import lombok.Getter;
 
+public class InterestResDto {
+    @Builder
+    @Getter
+    public static class findAllInterests {
+        private Long id;
+        private String keyword;
+    }
 }
