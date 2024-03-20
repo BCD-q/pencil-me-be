@@ -27,8 +27,8 @@ public class Interest {
         return this;
     }
 
-    public InterestResDto.findAllInterests createResponseDto() {
-        return InterestResDto.findAllInterests.builder()
+    public InterestResDto.findInterest createResponseDto() {
+        return InterestResDto.findInterest.builder()
                 .id(this.id)
                 .keyword(this.keyword)
                 .build();

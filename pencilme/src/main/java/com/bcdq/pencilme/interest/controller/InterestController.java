@@ -22,7 +22,7 @@ public class InterestController {
 
     @Operation(summary = "관심사 전체 조회", description = "모든 관심사를 조회하는 API입니다.")
     @GetMapping("/v1/interest")
-    public ResponseEntity<CommonResponse<List<InterestResDto.findAllInterests>>> findingAllInterest() {
+    public ResponseEntity<CommonResponse<List<InterestResDto.findInterest>>> findingAllInterest() {
         return ResponseEntity.status(HttpStatus.OK).body(
                 CommonResponse.of("", "", interestService.findAllInterests())
         );

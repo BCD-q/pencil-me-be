@@ -1,8 +1,9 @@
 package com.bcdq.pencilme.interest.service;
 
 import com.bcdq.pencilme.interest.domain.Interest;
-import com.bcdq.pencilme.interest.domain.dto.request.InterestReqDto;
-import com.bcdq.pencilme.interest.domain.dto.response.InterestResDto;
+import static com.bcdq.pencilme.interest.domain.dto.request.InterestReqDto.CreateInterests;
+import static com.bcdq.pencilme.interest.domain.dto.response.InterestResDto.findInterest;
+
 import com.bcdq.pencilme.interest.repository.InterestRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 public class InterestService {
     private final InterestRepository interestRepository;
 
-    public List<Long> createInterests(InterestReqDto.CreateInterests interestsDto) {
+    public List<Long> createInterests(CreateInterests interestsDto) {
         Set<String> dbKeyword = interestRepository.findAll()
                 .stream()
                 .map(Interest::getKeyword)
@@ -33,10 +34,10 @@ public class InterestService {
                 .collect(Collectors.toList());
     }
 
-    public List<InterestResDto.findAllInterests> findAllInterests() {
+    public List<findInterest> findAllInterests() {
         List<Interest> foundList = interestRepository.findAll();
         return foundList.stream()
-                .map(Interest::createResponseDto)
+                .map(findInterest::createResponse)
                 .collect(Collectors.toList());
     }
 
