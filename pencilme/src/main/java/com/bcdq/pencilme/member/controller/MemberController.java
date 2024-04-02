@@ -4,6 +4,7 @@ import com.bcdq.pencilme.common.CommonResponse;
 import com.bcdq.pencilme.member.dto.request.CreateMemberRequest;
 import com.bcdq.pencilme.member.dto.response.MemberResponse;
 import com.bcdq.pencilme.member.service.MemberService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,7 @@ public class MemberController {
      * @return CommonResponse<MemberResponse> 기본 응답 + 사용자 응답 DTO
      */
     @PostMapping("/v1/members")
+    @Operation(summary = "회원 가입", description = "회원 가입을 위한 정보 Body에 담아서 보내주세요")
     public ResponseEntity<CommonResponse<MemberResponse>> addMember(@Valid @RequestBody CreateMemberRequest createMemberRequest) {
         MemberResponse memberResponse = null;
         return CommonResponse.of(회원가입, memberResponse);
@@ -48,6 +50,7 @@ public class MemberController {
      * @return CommonResponse<MemberResponse> 기본 응답 + 사용자 응답 DTO
      */
     @GetMapping("/v1/members/{memberId}")
+    @Operation(summary = "회원 조회", description = "조회 할 회원의 식별자를 PathVariable로 보내주세요")
     public ResponseEntity<CommonResponse<MemberResponse>> getMember(@PathVariable("memberId") Long memberId) {
         MemberResponse memberResponse = null;
         return CommonResponse.of(회원조회, memberResponse);
@@ -60,6 +63,7 @@ public class MemberController {
      * @return CommonResponse<List<MemberResponse>> 기본 응답 + 사용자 응답 DTO 타입 리스트
      */
     @GetMapping("/v1/members")
+    @Operation(summary = "회원 전체 조회(관리자용)", description = "회원 전체의 정보를 가져옵니다")
     public ResponseEntity<CommonResponse<List<MemberResponse>>> getMemberList() {
         List<MemberResponse> memberResponse = null;
         return CommonResponse.of(회원조회, memberResponse);
@@ -73,6 +77,7 @@ public class MemberController {
      * @return CommonResponse<MemberResponse> 기본 응답 + 사용자 응답 DTO
      */
     @PutMapping("/v1/members/{memberId}")
+    @Operation(summary = "회원 정보 수정", description = "정보를 수정할 회원의 식별자는 PathVaraible로, 수정 할 정보는 Body에 담아서 보내주세요")
     public ResponseEntity<CommonResponse<MemberResponse>> modifyMember(@PathVariable("memberId") Long memberId) {
         MemberResponse memberResponse = null;
         return CommonResponse.of(회원수정, memberResponse);
@@ -86,6 +91,7 @@ public class MemberController {
      * @return CommonResponse 기본 응답
      */
     @DeleteMapping("/v1/members/{memberId}")
+    @Operation(summary = "회원 탈퇴", description = "탈퇴할 회원의 식별자를 PathVariable로 보내주세요")
     public ResponseEntity<CommonResponse<String>> removeMember(@PathVariable("memberId") Long memberId) {
         return CommonResponse.from(회원탈퇴);
     }

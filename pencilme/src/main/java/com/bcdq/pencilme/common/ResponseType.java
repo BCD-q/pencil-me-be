@@ -19,10 +19,10 @@ public enum ResponseType {
     회원탈퇴(200, "MEMBER_DELETED", "회원 탈퇴 완료"),
 
     // Category
-    카테고리생성(201, "CATEGORY_CREATED", "카테고리 생성 완료"),
-    카테고리조회(200, "CATEGORY_FOUND", "카테고리 조회 완료"),
-    카테고리수정(200, "CATEGORY_UPDATED", "카테고리 수정 완료"),
-    카테고리삭제(200, "CATEGORY_DELETED", "카테고리 삭제 완료"),
+    그룹생성(201, "CATEGORY_CREATED", "그룹 생성 완료"),
+    그룹조회(200, "CATEGORY_FOUND", "그룹 조회 완료"),
+    그룹수정(200, "CATEGORY_UPDATED", "그룹 수정 완료"),
+    그룹삭제(200, "CATEGORY_DELETED", "그룹 삭제 완료"),
 
     // TodoList
     할일생성(201, "TODOLIST_CREATED", "할 일 생성 완료"),

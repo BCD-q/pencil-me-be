@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * 카테고리 응답 DTO
+ * 그룹 응답 DTO
  *
  * @author Juwon Lee
  */
@@ -24,10 +24,10 @@ public class CategoryResponse {
     }
 
     /**
-     * 카테고리 응답 DTO 생성을 위한 정적 팩터리 메서드
+     * 그룹 응답 DTO 생성을 위한 정적 팩터리 메서드
      *
-     * @param category 카테고리 인스턴스
-     * @return CategoryResponse 카테고리 응답 DTO 인스턴스
+     * @param category 그룹 인스턴스
+     * @return CategoryResponse 그룹 응답 DTO 인스턴스
      */
     public static CategoryResponse from(Category category) {
         return CategoryResponse.builder()

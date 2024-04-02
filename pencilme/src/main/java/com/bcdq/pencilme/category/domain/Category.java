@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * 카테고리 Entity
+ * 그룹 Entity
  *
  * @author Juwon Lee
  */
@@ -35,8 +35,8 @@ public class Category extends BaseTimeEntity {
     }
 
     /**
-     * 카테고리 이름 업데이트 메서드
-     * 카테고리에서 수정 가능한 값(카테고리 이름)을 수정합니다
+     * 그룹 이름 업데이트 메서드
+     * 그룹에서 수정 가능한 값(그룹 이름)을 수정합니다
      *
      * @param name 수정할 이름 값
      */
