@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.member.service;
 
+import com.bcdq.pencilme.config.security.TokenProvider;
 import com.bcdq.pencilme.member.domain.Member;
 import com.bcdq.pencilme.member.dto.request.SignInMemberRequest;
 import com.bcdq.pencilme.member.dto.request.SignUpMemberRequest;
@@ -8,6 +9,9 @@ import com.bcdq.pencilme.member.dto.response.MemberResponse;
 import com.bcdq.pencilme.member.dto.response.MemberSignInResponse;
 import com.bcdq.pencilme.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +25,9 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class MemberService{
     private final MemberRepository memberRepository;
+    private final TokenProvider tokenProvider;
 
     /**
      * 회원 가입 메서드
@@ -43,7 +48,13 @@ public class MemberService {
      * @return MemberSignInResponse 회원 로그인 응답 DTO
      */
     public MemberSignInResponse login(SignInMemberRequest signInMemberRequest) {
-        return null;
+        String token = null;
+        Member member = memberRepository.findByUid(signInMemberRequest.getUid())
+                .orElseThrow(RuntimeException::new);
+        if (member.getPassword().equals(signInMemberRequest.getPassword())) {
+           token = tokenProvider.createAccessToken(member.getUid());
+        }
+        return MemberSignInResponse.from(token);
     }
 
     /**
