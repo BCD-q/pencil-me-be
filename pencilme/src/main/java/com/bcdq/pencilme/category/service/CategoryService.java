@@ -27,7 +27,7 @@ public class CategoryService {
      * 그룹 생성 메서드
      * 파라미터로 받은 그룹 요청과 사용자 정보를 기반으로 그룹를 생성합니다
      *
-     * @param createCategoryRequest 생성할 그룹의 내용을 담은 요청 DTO
+     * @param createCategoryRequest 생성할 그룹의 정보를 담은 요청 DTO
      * @param currentMember 현재 로그인한 사용자
      * @return CategoryResponse 그룹 응답 DTO
      */
@@ -62,7 +62,7 @@ public class CategoryService {
      * 그룹 수정 메서드
      *
      * @param categoryId 수정할 그룹의 id 값
-     * @param updateCategoryRequest 수정할 그룹의 내용을 담은 요청 DTO
+     * @param updateCategoryRequest 수정할 그룹의 정보를 담은 요청 DTO
      * @return CategoryResponse 그룹 응답 DTO
      */
     public CategoryResponse updateCategory(Long categoryId, UpdateCategoryRequest updateCategoryRequest) {

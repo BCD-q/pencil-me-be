@@ -26,7 +26,7 @@ public class CreateCategoryRequest {
      * 그룹 생성을 위한 정적 팩터리 메서드
      *
      * @param createCategoryRequest 생성할 그룹의 내용을 담은 요청 DTO
-     * @param member 현재 사용자 정보
+     * @param member 현재 회원 정보
      * @return Category 그룹 인스턴스
      */
     public static Category toEntity(CreateCategoryRequest createCategoryRequest, Member member) {

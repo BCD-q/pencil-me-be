@@ -7,23 +7,17 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 회원 수정 요청을 위한 DTO
+ * 로그인을 위한 요청 DTO
  *
  * @author Juwon Lee
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UpdateMemberRequest {
+public class SignInMemberRequest {
 
     @NotBlank
     private String uid;
 
     @NotBlank
-    private String email;
-
-    @NotBlank
     private String password;
-
-    @NotBlank
-    private String nickname;
 }
