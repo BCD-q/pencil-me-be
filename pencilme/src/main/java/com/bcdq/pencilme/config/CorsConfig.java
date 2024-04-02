@@ -5,6 +5,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * CORS 에러를 해결하기 위한 필터 설정 요소를 담은 클래스
+ *
+ * @author Juwon Lee
+ */
 @Configuration
 public class CorsConfig {
     public CorsFilter corsFilter() {

@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 표준 응답
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public class CommonResponse<T> {
 
@@ -19,6 +24,12 @@ public class CommonResponse<T> {
         this.data = data;
     }
 
+    /**
+     * 표준 응답을 위한 정적 팩터리 메서드 (data가 없는 경우)
+     *
+     * @param responseType 응답에 대한 Enum
+     * @return ResponseEntity<CommonResponse<String>>> String 타입의 CommonResponse 응답
+     */
     public static ResponseEntity<CommonResponse<String>> from (ResponseType responseType) {
         return ResponseEntity.status(responseType.getStatus())
                 .body(CommonResponse.<String>builder()
@@ -28,6 +39,12 @@ public class CommonResponse<T> {
                         .build());
     }
 
+    /**
+     * 표준 응답을 위한 정적 팩터리 메서드 (data가 있는 경우)
+     *
+     * @param responseType 응답에 대한 Enum
+     * @return ResponseEntity<CommonResponse<T>>> data 타입의 CommonResponse 응답
+     */
     public static <T> ResponseEntity<CommonResponse<T>> of (ResponseType responseType, T data) {
         return ResponseEntity.status(responseType.getStatus())
                 .body(CommonResponse.<T>builder()

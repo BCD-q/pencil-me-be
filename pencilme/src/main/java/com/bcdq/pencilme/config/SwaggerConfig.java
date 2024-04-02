@@ -6,6 +6,11 @@ import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Swagger-ui 설정 요소를 담은 클래스
+ *
+ * @author Juwon Lee
+ */
 @Configuration
 public class SwaggerConfig {
     @Bean

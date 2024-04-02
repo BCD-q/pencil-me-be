@@ -21,7 +21,7 @@ configurations {
 jib {
 	to {
 		image = DockerContainerName
-		tags = [ "latest" ]
+		tags = [ "test" ]
 		auth {
 			username = DockerUsername
 			password = DockerPassword
