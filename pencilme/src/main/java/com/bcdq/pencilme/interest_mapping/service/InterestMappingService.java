@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.interest_mapping.service;
 
 import com.bcdq.pencilme.interest.domain.Interest;
+import com.bcdq.pencilme.interest.repository.InterestRepository;
 import com.bcdq.pencilme.interest_mapping.domain.InterestMapping;
 import com.bcdq.pencilme.interest_mapping.domain.dto.response.InterestMappingResDto;
 import com.bcdq.pencilme.interest_mapping.repository.InterestMappingRepository;
@@ -18,13 +19,15 @@ import java.util.stream.Collectors;
 public class InterestMappingService {
     private final MemberRepository memberRepository;
     private final InterestMappingRepository interestMappingRepository;
+    private final InterestRepository interestRepository;
 
     /*
     * Member와 Interest간 매핑을 시켜주는 메소드
     * */
-    public void relatingObjects(String memberUid, List<Interest> interestList) {
+    public void relatingObjects(String memberUid, List<Long> interestList) {
         Member foundMember = findMemberByUid(memberUid);
-        List<InterestMapping> interestMappingList = interestList.stream().map(
+        List<Interest> foundInterests = interestRepository.findAllById(interestList);
+        List<InterestMapping> interestMappingList = foundInterests.stream().map(
                 interest -> InterestMapping.builder().member(foundMember).interest(interest).build()
         ).collect(Collectors.toList());
         interestMappingRepository.saveAll(interestMappingList);

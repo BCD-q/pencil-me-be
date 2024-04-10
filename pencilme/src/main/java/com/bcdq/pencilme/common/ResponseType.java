@@ -31,8 +31,16 @@ public enum ResponseType {
     할일삭제(200, "TODOLIST_DELETED", "할 일 삭제 완료"),
 
     // Communicator
-    할일등록요청완료(201, "TODO_REQUEST_SENT", "일정 등록 요청 완료");
+    할일등록요청완료(201, "TODO_REQUEST_SENT", "일정 등록 요청 완료"),
 
+    // Interest
+    관심사전체조회(200, "INTEREST_FIND_ALL", "관심사 전체조회 완료"),
+    여러관심사생성(201, "INTEREST_CREATED", "관심사 생성 완료"),
+    관심사단건수정(200, "INTEREST_UPDATED", "관심사 수정 완료"),
+    여러관심사삭제(200, "INTEREST_DELETED", "관심사 삭제 완료"),
+
+    // Interest Mapping
+    여러관심사멤버매핑(200, "RELATE_SUCCESS", "여러 관심사와 멤버간 매핑 성공");
     private final int status;
     private final String responseCode;
     private final String responseMessage;
