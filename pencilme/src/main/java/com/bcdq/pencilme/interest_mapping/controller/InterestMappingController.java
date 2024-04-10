@@ -24,11 +24,13 @@ public class InterestMappingController {
     @Operation(summary = "Member와 Interest간 매핑")
     @GetMapping("/v1/interest-mapping")
     public ResponseEntity<CommonResponse<Void>> relatingObject(
-            @RequestParam("interests")List<Long> interests,
-            @AuthenticationPrincipal UserDetails userDetails
+            final @AuthenticationPrincipal UserDetails userDetails,
+            @RequestParam("interests")List<Long> interests
             ) {
         String uId = userDetails.getUsername();
         interestMappingService.relatingObjects(uId, interests);
         return CommonResponse.of(ResponseType.여러관심사멤버매핑, null);
     }
+
+
 }
