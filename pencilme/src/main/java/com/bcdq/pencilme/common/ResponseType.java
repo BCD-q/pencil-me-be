@@ -40,7 +40,10 @@ public enum ResponseType {
     여러관심사삭제(200, "INTEREST_DELETED", "관심사 삭제 완료"),
 
     // Interest Mapping
-    여러관심사멤버매핑(200, "RELATE_SUCCESS", "여러 관심사와 멤버간 매핑 성공");
+    여러관심사멤버매핑(200, "RELATE_SUCCESS", "여러 관심사와 멤버간 매핑 성공"),
+    사용자의모든관심사찾기(200, "FIND_RELATED_INTEREST", "멤버와 연관되어 있는 관심사를 모두 불러왔습니다."),
+    여러관심사매핑해제(200, "DISSOCIATED_SUCCESS", "여러 관심사와 멤버간 매핑을 성공적으로 해제했습니다.");
+
     private final int status;
     private final String responseCode;
     private final String responseMessage;

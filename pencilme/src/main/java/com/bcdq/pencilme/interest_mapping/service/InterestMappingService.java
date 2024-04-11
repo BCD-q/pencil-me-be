@@ -51,13 +51,14 @@ public class InterestMappingService {
     /*
     * Member와 Interest의 연관관계 해제
     * */
-    public void dissociateObjects(String memberUid, List<Interest> interestList) {
+    public void dissociateObjects(String memberUid, List<Long> interestList) {
+        List<Interest> foundInterests = interestRepository.findAllById(interestList);
         Member foundMember = findMemberByUid(memberUid);
        List<InterestMapping> interestMappingList =  interestMappingRepository.findAllByMember(foundMember);
        List<Long> missingIds = interestMappingList.stream().map(
                interestMapping -> interestMapping.getInterest().getId()
        ).collect(Collectors.toList());
-       List<Long> givenIds = interestList.stream().map(Interest::getId).collect(Collectors.toList());
+       List<Long> givenIds = foundInterests.stream().map(Interest::getId).collect(Collectors.toList());
        for (Long id: givenIds) {
            missingIds.remove(id);
        }
