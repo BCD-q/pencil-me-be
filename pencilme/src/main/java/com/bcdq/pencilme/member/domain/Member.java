@@ -50,7 +50,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.uid;
     }
 
     @Override

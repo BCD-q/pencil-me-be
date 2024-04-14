@@ -3,6 +3,7 @@ package com.bcdq.pencilme.interest_mapping.domain;
 import com.bcdq.pencilme.interest.domain.Interest;
 import com.bcdq.pencilme.member.domain.Member;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,15 +13,25 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity(name = "interest_map")
 public class InterestMapping {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+        @ManyToOne
+        @JoinColumn(name = "member_id")
+        private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "interest_id")
-    private Interest interest;
+        @ManyToOne
+        @JoinColumn(name = "interest_id")
+        private Interest interest;
+
+        @Builder
+        private InterestMapping(Member member, Interest interest) {
+            this.member = member;
+            this.interest = interest;
+        }
+
+        public void updateMember(Member member) {
+            this.member = member;
+        }
 }

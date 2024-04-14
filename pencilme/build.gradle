@@ -21,7 +21,7 @@ configurations {
 jib {
 	to {
 		image = DockerContainerName
-		tags = [ "latest" ]
+		tags = [ "test" ]
 		auth {
 			username = DockerUsername
 			password = DockerPassword
@@ -75,6 +75,7 @@ dependencies {
 
 	// Swagger ui
 	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	implementation 'org.springdoc:springdoc-openapi-security:1.7.0'
 
 	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
