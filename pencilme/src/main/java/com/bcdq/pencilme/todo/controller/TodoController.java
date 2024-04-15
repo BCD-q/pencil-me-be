@@ -36,7 +36,7 @@ public class TodoController {
      */
     @PostMapping("/v1/todos")
     @Operation(summary = "할 일 생성", description = "생성할 할 일의 정보를 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<TodoResponse>> addTodo(@RequestBody @Valid CreateTodoRequest createTodoRequest) {
+    public ResponseEntity<CommonResponse<TodoResponse>> addTodo(@Valid @RequestBody CreateTodoRequest createTodoRequest) {
         TodoResponse todoResponse = todoService.createTodo(createTodoRequest);
         return CommonResponse.of(할일생성, todoResponse);
     }
@@ -78,7 +78,7 @@ public class TodoController {
      */
     @PutMapping("/v1/todos/{todoId}")
     @Operation(summary = "할 일 수정", description = "수정할 할 일의 식별자를 PathVariable로, 수정할 내용은 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<TodoResponse>> modifyTodo(@PathVariable("todoId") Long todoId, @RequestBody @Valid UpdateTodoRequest updateTodoRequest) {
+    public ResponseEntity<CommonResponse<TodoResponse>> modifyTodo(@PathVariable("todoId") Long todoId, @Valid @RequestBody UpdateTodoRequest updateTodoRequest) {
         TodoResponse todoResponse = todoService.updateTodo(todoId, updateTodoRequest);
         return CommonResponse.of(할일수정, todoResponse);
     }

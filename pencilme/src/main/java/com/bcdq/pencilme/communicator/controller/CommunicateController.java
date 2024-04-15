@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.bcdq.pencilme.common.ResponseType.*;
 
 /**
@@ -34,7 +36,7 @@ public class CommunicateController {
      */
     @PostMapping("/v1/language")
     @Operation(summary = "할 일 등록 요청", description = "할 일 등록을 위해 AI Server에 전송할 할 일을 입력해주세요")
-    public ResponseEntity<CommonResponse<CommunicateTodoResponse>> requestTodo(@RequestBody TodoRequest todoRequest) throws JsonProcessingException {
+    public ResponseEntity<CommonResponse<CommunicateTodoResponse>> requestTodo(@Valid @RequestBody TodoRequest todoRequest) throws JsonProcessingException {
         /*
             현재 로그인 한 사용자의 식별자 값을 기반으로 진행 - AuthenticationPrincipal
             @AuthenticationPrincipal Member currentMember 추가 예정

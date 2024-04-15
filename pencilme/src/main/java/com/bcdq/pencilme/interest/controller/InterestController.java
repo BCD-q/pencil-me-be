@@ -1,17 +1,18 @@
 package com.bcdq.pencilme.interest.controller;
 
 import com.bcdq.pencilme.common.ResponseType;
-import com.bcdq.pencilme.interest.domain.dto.request.InterestReqDto;
-import com.bcdq.pencilme.interest.domain.dto.response.InterestResDto;
+import com.bcdq.pencilme.interest.dto.request.CreateInterestRequest;
+import com.bcdq.pencilme.interest.dto.request.UpdateInterestRequest;
+import com.bcdq.pencilme.interest.dto.response.InterestResponse;
 import com.bcdq.pencilme.interest.service.InterestService;
 import com.bcdq.pencilme.common.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,33 +24,26 @@ public class InterestController {
 
     @Operation(summary = "관심사 전체 조회", description = "모든 관심사를 조회하는 API입니다.")
     @GetMapping("/v1/interest")
-    public ResponseEntity<CommonResponse<List<InterestResDto.findInterest>>> findingAllInterest() {
+    public ResponseEntity<CommonResponse<List<InterestResponse>>> findingAllInterest() {
         return CommonResponse.of(ResponseType.관심사전체조회, interestService.findAllInterests());
     }
 
     @Operation(summary = "관심사 생성", description = "관심사를 여러개 생성하는 API입니다.")
     @PostMapping("/v1/interest")
-    public ResponseEntity<CommonResponse<List<Long>>> creatingMultipleInterests(
-            final @RequestBody InterestReqDto.CreateInterests createInterests
-    ) {
-        return CommonResponse.of(ResponseType.여러관심사생성, interestService.createInterests(createInterests));
+    public ResponseEntity<CommonResponse<List<InterestResponse>>> creatingMultipleInterests(@Valid @RequestBody CreateInterestRequest createInterestRequest) {
+        return CommonResponse.of(ResponseType.여러관심사생성, interestService.createInterests(createInterestRequest));
     }
 
     @Operation(summary = "관심사 (단 건) 수정", description = "관심사를 (단 건) 수정할 수 있는 API입니다.")
-    @PatchMapping("/v1/interest")
-    public ResponseEntity<CommonResponse<Long>> modifyingInterest(
-            final @RequestParam("id") Long id,
-            final @RequestParam("keyword") String keyword
-    ) {
-        return CommonResponse.of(ResponseType.관심사단건수정, interestService.modifyInterests(id, keyword));
+    @PatchMapping("/v1/interest/{interestId}")
+    public ResponseEntity<CommonResponse<InterestResponse>> modifyingInterest(@PathVariable("interestId") Long interestId, @Valid @RequestBody UpdateInterestRequest updateInterestRequest) {
+        return CommonResponse.of(ResponseType.관심사단건수정, interestService.modifyInterests(interestId, updateInterestRequest));
     }
 
     @Operation(summary = "관심사 삭제", description = "여러개의 관심사를 삭제할 수 있는 API입니다.")
-    @DeleteMapping("/v1/interest/{ids}")
-    public ResponseEntity<CommonResponse<List<Long>>> deletingMultipleInterest(
-            final @PathVariable("ids") List<Long> ids
-    ) {
-        return CommonResponse.of(ResponseType.여러관심사삭제, interestService.removeInterests(ids));
+    @DeleteMapping("/v1/interest/{interestIds}")
+    public ResponseEntity<CommonResponse<List<Long>>> deletingMultipleInterest(@PathVariable("interestIds") List<Long> interestIds) {
+        return CommonResponse.of(ResponseType.여러관심사삭제, interestService.removeInterests(interestIds));
     }
 
 }

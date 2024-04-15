@@ -9,6 +9,7 @@ import com.bcdq.pencilme.member.domain.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,19 +40,7 @@ public class CategoryController {
      */
     @PostMapping("/v1/categories")
     @Operation(summary = "그룹 생성", description = "생성할 그룹의 정보를 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<CategoryResponse>> addCategory(@Valid @RequestBody CreateCategoryRequest createCategoryRequest) {
-        /*
-            현재 로그인 한 사용자의 식별자 값을 기반으로 진행 - AuthenticationPrincipal
-            @AuthenticationPrincipal Member currentMember 추가 예정
-        */
-        Member currentMember = Member.builder()
-                .id(1L)
-                .uid("tester")
-                .password("test1234")
-                .email("tester@inu.ac.kr")
-                .nickname("테스터")
-                .build();
-
+    public ResponseEntity<CommonResponse<CategoryResponse>> addCategory(@Valid @RequestBody CreateCategoryRequest createCategoryRequest, @AuthenticationPrincipal Member currentMember) {
         CategoryResponse categoryResponse = categoryService.createCategory(createCategoryRequest, currentMember);
         return CommonResponse.of(그룹생성, categoryResponse);
     }
@@ -93,7 +82,7 @@ public class CategoryController {
      */
     @PutMapping("/v1/categories/{categoryId}")
     @Operation(summary = "그룹 수정", description = "수정할 그룹의 식별자를 PathVariable로, 수정할 내용은 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @RequestBody @Valid UpdateCategoryRequest updateCategoryRequest) {
+    public ResponseEntity<CommonResponse<CategoryResponse>> modifyCategory(@PathVariable("categoryId") Long categoryId, @Valid @RequestBody UpdateCategoryRequest updateCategoryRequest) {
         CategoryResponse categoryResponse = categoryService.updateCategory(categoryId, updateCategoryRequest);
         return CommonResponse.of(그룹수정, categoryResponse);
     }

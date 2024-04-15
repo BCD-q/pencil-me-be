@@ -1,1 +1,0 @@
-insert into member(id, nickname, password, uid, email) values(1, '테스터', 'tester123', 'tester', 'tester@inu.com');

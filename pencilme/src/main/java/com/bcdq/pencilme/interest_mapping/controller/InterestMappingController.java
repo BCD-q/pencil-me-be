@@ -2,18 +2,14 @@ package com.bcdq.pencilme.interest_mapping.controller;
 
 import com.bcdq.pencilme.common.CommonResponse;
 import com.bcdq.pencilme.common.ResponseType;
-import com.bcdq.pencilme.interest_mapping.domain.dto.response.InterestMappingResDto;
+import com.bcdq.pencilme.interest_mapping.dto.response.InterestMappingResponse;
 import com.bcdq.pencilme.interest_mapping.service.InterestMappingService;
+import com.bcdq.pencilme.member.domain.Member;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,35 +19,25 @@ public class InterestMappingController {
     private final InterestMappingService interestMappingService;
 
     @Operation(summary = "Member와 Interest간 매핑")
-    @GetMapping("/v1/interest-mapping")
-    public ResponseEntity<CommonResponse<Void>> relatingObject(
-            final @AuthenticationPrincipal UserDetails userDetails,
-            final @RequestParam("interests")List<Long> interests
-            ) {
-        String uId = userDetails.getUsername();
-        interestMappingService.relatingObjects(uId, interests);
-        return CommonResponse.of(ResponseType.여러관심사멤버매핑, null);
+    @GetMapping("/v1/interest-mapping/{interests}")
+    public ResponseEntity<CommonResponse<String>> relatingObject(@AuthenticationPrincipal Member currentMember, @PathVariable("interests") List<Long> interests) {
+        String uid = currentMember.getUid();
+        interestMappingService.relatingObjects(uid, interests);
+        return CommonResponse.from(ResponseType.여러관심사멤버매핑);
     }
 
     @Operation(summary = "멤버와 연관된 Interest를 모두 찾기")
-    @GetMapping("/v1/interest-mapping/find-all-by-member")
-    public ResponseEntity<CommonResponse<List<InterestMappingResDto.findAllByMember>>> findAllByMember(
-            final @AuthenticationPrincipal UserDetails userDetails
-    ) {
-        String uId = userDetails.getUsername();
-        return CommonResponse.of(ResponseType.사용자의모든관심사찾기, interestMappingService.findAllByMember(uId));
+    @GetMapping("/v1/interest-mapping")
+    public ResponseEntity<CommonResponse<List<InterestMappingResponse>>> findAllByMember(final @AuthenticationPrincipal Member currentMember) {
+        String uid = currentMember.getUid();
+        return CommonResponse.of(ResponseType.사용자의모든관심사찾기, interestMappingService.findAllByMember(uid));
     }
 
     @Operation(summary = "Member와 Interest간의 연관관계 해제")
-    @GetMapping("/v1/interest-mapping/dissociate-object")
-    public ResponseEntity<CommonResponse<Void>> dissociateObject(
-            final @AuthenticationPrincipal UserDetails userDetails,
-            final @RequestParam("interests") List<Long> interests
-    ) {
-        String uid = userDetails.getUsername();
+    @DeleteMapping("/v1/interest-mapping")
+    public ResponseEntity<CommonResponse<String>> dissociateObject(@AuthenticationPrincipal Member currentMember, @RequestParam("interests") List<Long> interests) {
+        String uid = currentMember.getUid();
         interestMappingService.dissociateObjects(uid, interests);
-        return CommonResponse.of(ResponseType.여러관심사매핑해제, null);
+        return CommonResponse.from(ResponseType.여러관심사매핑해제);
     }
-
-
 }
