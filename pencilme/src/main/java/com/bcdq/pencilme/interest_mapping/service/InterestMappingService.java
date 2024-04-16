@@ -24,8 +24,8 @@ public class InterestMappingService {
     /*
     * Member와 Interest간 매핑을 시켜주는 메소드
     * */
-    public void relatingObjects(String memberUid, List<Long> interestList) {
-        Member foundMember = findMemberByUid(memberUid);
+    public void relatingObjects(Long memberId, List<Long> interestList) {
+        Member foundMember = findById(memberId);
         List<InterestMapping> interestMappingList = interestRepository.findAllById(interestList).stream()
                 .map(interest -> InterestMapping.builder().member(foundMember).interest(interest).build())
                 .collect(Collectors.toList());
@@ -35,8 +35,8 @@ public class InterestMappingService {
     /*
     * Member와 연관된 Interest를 모두 찾기
     * */
-    public List<InterestMappingResponse> findAllByMember(String memberUid) {
-        Member foundMember = findMemberByUid(memberUid);
+    public List<InterestMappingResponse> findAllByMember(Long memberId) {
+        Member foundMember = findById(memberId);
         return interestMappingRepository.findAllByMember(foundMember).stream()
                 .map(InterestMappingResponse::from)
                 .collect(Collectors.toList());
@@ -45,9 +45,9 @@ public class InterestMappingService {
     /*
      * Member와 Interest의 연관관계 해제
      * */
-    public void dissociateObjects(String memberUid, List<Long> interestList) {
+    public void dissociateObjects(Long memberId, List<Long> interestList) {
         List<Interest> foundInterests = interestRepository.findAllById(interestList);
-        Member foundMember = findMemberByUid(memberUid);
+        Member foundMember = findById(memberId);
         List<InterestMapping> interestMappingList =  interestMappingRepository.findAllByMember(foundMember);
         List<Long> missingIds = interestMappingList.stream().map(
                 interestMapping -> interestMapping.getInterest().getId()
@@ -69,7 +69,7 @@ public class InterestMappingService {
         interestMappingRepository.deleteAll(missingInterestMappingList);
     }
 
-    private Member findMemberByUid(String memberUid) {
-        return memberRepository.findByUid(memberUid).orElseThrow(() -> new RuntimeException(""));
+    private Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException(""));
     }
 }

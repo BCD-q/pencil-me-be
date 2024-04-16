@@ -17,6 +17,6 @@ import javax.validation.constraints.NotBlank;
 public class UpdateCategoryRequest {
 
     @NotBlank
-    @Schema(description = "적용할 그룹 이름", nullable = false, example = "Spring boot")
+    @Schema(description = "적용할 그룹 이름", example = "Spring boot")
     private String name;
 }

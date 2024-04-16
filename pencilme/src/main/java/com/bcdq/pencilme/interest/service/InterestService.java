@@ -31,20 +31,20 @@ public class InterestService {
                 .collect(Collectors.toList());
     }
 
-    public List<InterestResponse> findAllInterests() {
+    public List<InterestResponse> readInterests() {
         return interestRepository.findAll().stream()
                 .map(InterestResponse::from)
                 .collect(Collectors.toList());
     }
 
-    public InterestResponse modifyInterests(Long interestId, UpdateInterestRequest updateInterestRequest) {
+    public InterestResponse updateInterests(Long interestId, UpdateInterestRequest updateInterestRequest) {
         Interest foundInterest = findById(interestId);
         foundInterest.updateKeyword(updateInterestRequest.getKeyword());
         interestRepository.save(foundInterest);
         return InterestResponse.from(foundInterest);
     }
 
-    public List<Long> removeInterests(List<Long> ids) {
+    public List<Long> deleteInterests(List<Long> ids) {
         ids.removeIf(id -> !interestRepository.findAll().stream()
                 .map(Interest::getId)
                 .collect(Collectors.toList())

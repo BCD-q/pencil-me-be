@@ -1,6 +1,5 @@
 package com.bcdq.pencilme.interest.domain;
 
-import com.bcdq.pencilme.interest.dto.response.InterestResponse;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

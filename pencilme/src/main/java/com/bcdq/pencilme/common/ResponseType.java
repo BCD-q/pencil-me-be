@@ -32,6 +32,7 @@ public enum ResponseType {
 
     // Communicator
     할일등록요청완료(201, "TODO_REQUEST_SENT", "일정 등록 요청 완료"),
+    요약완료(200, "SUMMARIZE_FINISHED", "요약 완료"),
 
     // Interest
     관심사전체조회(200, "INTEREST_FIND_ALL", "관심사 전체조회 완료"),

@@ -7,6 +7,7 @@ import com.bcdq.pencilme.category.service.CategoryService;
 import com.bcdq.pencilme.common.CommonResponse;
 import com.bcdq.pencilme.member.domain.Member;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +25,7 @@ import static com.bcdq.pencilme.common.ResponseType.*;
  *
  * @author Juwon Lee
  */
-@CrossOrigin // temp
+@Tag(name = "[Category] 그룹 API", description = "할 일에 대한 그룹을 데이터베이스에 등록, 수정, 조회, 삭제 할 수 있는 API들의 모음입니다.")
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
