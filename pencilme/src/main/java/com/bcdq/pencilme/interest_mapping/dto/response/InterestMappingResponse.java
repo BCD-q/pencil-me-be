@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * 관심사 매핑 응답 DTO
+ *
+ * @author Wonjeong Kim
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InterestMappingResponse {
@@ -18,7 +23,13 @@ public class InterestMappingResponse {
             this.keyword = keyword;
         }
 
-        public static InterestMappingResponse from(InterestMapping interestMapping) {
+    /**
+     * 관심사 매핑 응답 DTO 생성을 위한 정적 팩터리 메서드
+     *
+     * @param interestMapping 관심사 매핑 인스턴스
+     * @return InterestMappingResponse 관심사 매핑 응답 DTO 인스턴스
+     */
+    public static InterestMappingResponse from(InterestMapping interestMapping) {
             return InterestMappingResponse.builder()
                     .id(interestMapping.getId())
                     .keyword(interestMapping.getInterest().getKeyword())

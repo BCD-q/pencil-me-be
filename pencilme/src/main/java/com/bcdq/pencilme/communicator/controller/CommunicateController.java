@@ -48,7 +48,7 @@ public class CommunicateController {
     }
 
     /**
-     * GET /api/v1/summarize
+     * GET /api/v1/summary
      *
      * @param url 요약할 url 링크
      * @return CommonResponse<CommunicateSummaryResponse> 기본 응답 + 생성된 요약문 응답 DTO

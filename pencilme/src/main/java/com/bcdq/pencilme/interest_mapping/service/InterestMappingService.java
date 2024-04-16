@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 관심사 매핑 관련 Service
+ * 관심사 매핑, 조회, 매핑 해제 요청 처리
+ *
+ * @author Wonjeong Kim
+ */
 @Service
 @RequiredArgsConstructor
 public class InterestMappingService {
@@ -69,6 +75,12 @@ public class InterestMappingService {
         interestMappingRepository.deleteAll(missingInterestMappingList);
     }
 
+    /**
+     * 회원 DB 조회 메서드
+     *
+     * @param memberId 조회할 회원의 id 값
+     * @return Member 조회된 회원
+     */
     private Member findById(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException(""));
     }

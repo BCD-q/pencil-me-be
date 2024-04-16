@@ -9,9 +9,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+/**
+ * 관심사 매핑 Entity
+ *
+ * @author Wonjeong Kim
+ */
+@Entity
 @Getter
+@Table(name = "interest_map")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "interest_map")
 public class InterestMapping {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
