@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.todo.controller;
 
 import com.bcdq.pencilme.common.CommonResponse;
+import com.bcdq.pencilme.member.domain.Member;
 import com.bcdq.pencilme.todo.dto.request.CreateTodoRequest;
 import com.bcdq.pencilme.todo.dto.request.UpdateTodoRequest;
 import com.bcdq.pencilme.todo.dto.response.TodoResponse;
@@ -8,6 +9,7 @@ import com.bcdq.pencilme.todo.service.TodoService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -36,8 +38,8 @@ public class TodoController {
      */
     @PostMapping("/v1/todos")
     @Operation(summary = "할 일 생성", description = "생성할 할 일의 정보를 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<TodoResponse>> addTodo(@Valid @RequestBody CreateTodoRequest createTodoRequest) {
-        TodoResponse todoResponse = todoService.createTodo(createTodoRequest);
+    public ResponseEntity<CommonResponse<TodoResponse>> addTodo(@Valid @RequestBody CreateTodoRequest createTodoRequest, @AuthenticationPrincipal Member currentMember) {
+        TodoResponse todoResponse = todoService.createTodo(createTodoRequest, currentMember);
         return CommonResponse.of(할일생성, todoResponse);
     }
 

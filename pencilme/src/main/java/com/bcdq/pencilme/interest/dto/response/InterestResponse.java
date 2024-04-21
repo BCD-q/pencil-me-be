@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.interest.dto.response;
 
 import com.bcdq.pencilme.interest.domain.Interest;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class InterestResponse {
+    @Schema(description = "관심사의 id값", example = "2")
     private Long id;
+
+    @Schema(description = "관심사의 키워드 값", example = "Computer Science")
     private String keyword;
 
     @Builder(access = AccessLevel.PRIVATE)

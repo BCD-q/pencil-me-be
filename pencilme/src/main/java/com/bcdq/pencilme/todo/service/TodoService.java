@@ -22,10 +22,9 @@ public class TodoService {
     private final CategoryRepository categoryRepository;
     private final MemberRepository memberRepository;
 
-    public TodoResponse createTodo(CreateTodoRequest createTodoRequest) {
-        Category category = findByCategoryName(createTodoRequest.getCategory());
-        Member member = memberRepository.findById(1L).get();
-        Todo todo = CreateTodoRequest.toEntity(createTodoRequest, member, category);
+    public TodoResponse createTodo(CreateTodoRequest createTodoRequest, Member currentMember) {
+        Category category = findByCategoryId(createTodoRequest.getCategoryId());
+        Todo todo = CreateTodoRequest.toEntity(createTodoRequest, currentMember, category);
         todoRepository.save(todo);
         return TodoResponse.from(todo);
     }
@@ -56,8 +55,8 @@ public class TodoService {
                 .orElseThrow(RuntimeException::new);
     }
 
-    private Category findByCategoryName(String name) {
-        return categoryRepository.findByName(name)
+    private Category findByCategoryId(Long categoryId) {
+        return categoryRepository.findById(categoryId)
                 .orElseThrow(RuntimeException::new);
     }
 }

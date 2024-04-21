@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.interest.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,5 +13,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UpdateInterestRequest {
+    @Schema(description = "수정할 키워드", example = "Spring Boot")
     private String keyword;
 }

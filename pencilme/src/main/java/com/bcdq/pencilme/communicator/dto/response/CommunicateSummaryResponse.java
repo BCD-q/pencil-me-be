@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.communicator.dto.response;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CommunicateSummaryResponse {
+
+    @Schema(description = "요약한 포스팅의 제목", example = "토스뱅크의 코어뱅킹 MSA 전환")
     private String title;
+
+    @Schema(description = "요약한 포스팅의 내용", example = "토스뱅크는 기존의 공급자 중심의 뱅킹 서비스를 고객 중심으로 변화시키기 위해 MSA로 코어뱅킹 시스템을 전환하였고, 이를 통해...")
     private String contents;
 
     @Builder(access = AccessLevel.PRIVATE)
