@@ -8,6 +8,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+/**
+ * 할 일 수정 요청을 위한 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UpdateTodoRequest {

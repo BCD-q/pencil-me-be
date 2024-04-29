@@ -1,20 +1,39 @@
 package com.bcdq.pencilme.todo.dto.response;
 
 import com.bcdq.pencilme.todo.domain.Todo;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+/**
+ * 할 일 응답 DTO
+ *
+ * @author Juwon Lee
+ */
 @Getter
 public class TodoResponse {
+    @Schema(description = "할 일의 id값", example = "1")
     private final Long id;
+
+    @Schema(description = "그룹 id값", example = "1")
     private final Long categoryId;
+
+    @Schema(description = "회원 id값", example = "1")
     private final Long memberId;
+
+    @Schema(description = "할 일의 제목", example = "캡디 발표")
     private final String title;
+
+    @Schema(description = "할 일의 내용", example = "키노트로 발표합니다")
     private final String contents;
+
+    @Schema(description = "마갑기한", example = "2024-06-01")
     private final LocalDateTime deadline;
+
+    @Schema(description = "완료 여부", example = "false")
     private final Boolean isFinished;
 
     @Builder(access = AccessLevel.PRIVATE)

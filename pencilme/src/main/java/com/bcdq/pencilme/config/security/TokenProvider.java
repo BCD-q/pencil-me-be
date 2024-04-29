@@ -40,7 +40,7 @@ public class TokenProvider {
     public String createAccessToken(String userUid) {
         Claims claims = Jwts.claims().setSubject(userUid);
         Date now = new Date();
-        long tokenValidMillisecond = 1000L * 60 * 30; // 30분
+        long tokenValidMillisecond = 1000L * 60 * 1440;
 
         return Jwts.builder()
                 .signWith(secretKey)

@@ -1,6 +1,5 @@
 package com.bcdq.pencilme.config;
 
-import com.bcdq.pencilme.config.security.CustomAccessDeniedHandler;
 import com.bcdq.pencilme.config.security.CustomAuthenticationEntryPoint;
 import com.bcdq.pencilme.config.security.JwtAuthenticationFilter;
 import com.bcdq.pencilme.config.security.TokenProvider;
@@ -14,6 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Spring Security 필터 설정 요소를 담은 클래스
+ *
+ * @author Juwon Lee
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor

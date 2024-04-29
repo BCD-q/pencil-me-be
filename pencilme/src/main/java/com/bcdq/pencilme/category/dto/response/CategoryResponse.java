@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.category.dto.response;
 
 import com.bcdq.pencilme.category.domain.Category;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,8 +13,14 @@ import lombok.Getter;
  */
 @Getter
 public class CategoryResponse {
+
+    @Schema(description = "그룹의 id값", example = "1")
     private final Long categoryId;
+
+    @Schema(description = "회원의 id값", example = "1")
     private final Long memberId;
+
+    @Schema(description = "그룹의 이름", example = "Computer Science")
     private final String categoryName;
 
     @Builder(access = AccessLevel.PRIVATE)

@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.common;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,8 +14,13 @@ import org.springframework.http.ResponseEntity;
 @Getter
 public class CommonResponse<T> {
 
+    @Schema(description = "응답 코드", example = "MEMBER_REGISTERED")
     private final String responseCode;
+
+    @Schema(description = "응답 메시지", example = "회원 가입 완료")
     private final String responseMessage;
+
+    @Schema(description = "응답 데이터(DTO)", example = "{ id = 1 ... }")
     private final T data;
 
     @Builder(access = AccessLevel.PRIVATE)

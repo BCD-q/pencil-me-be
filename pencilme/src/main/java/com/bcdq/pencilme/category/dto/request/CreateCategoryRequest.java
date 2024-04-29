@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 public class CreateCategoryRequest {
 
     @NotBlank
-    @Schema(description = "생성할 그룹의 이름", nullable = false, example = "Computer Science")
+    @Schema(description = "생성할 그룹의 이름", example = "Computer Science")
     private String name;
 
     /**
