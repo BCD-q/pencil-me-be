@@ -26,7 +26,8 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/api/v1/members/login",
-            "/api/v1/members"
+            "/api/v1/members",
+            "/api/v1/**"
     };
 
     private final TokenProvider tokenProvider;
@@ -35,12 +36,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .httpBasic().disable()
-                .headers().frameOptions().disable()
+                .csrf().disable()
+                .cors()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(PERMIT_URI_ARRAY).permitAll()
                 .antMatchers(HttpMethod.GET, "*").permitAll()
                 .antMatchers("**exception**").permitAll()
@@ -48,9 +49,7 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
-                .csrf().disable()
-                .cors();
+                .addFilterBefore(new JwtAuthenticationFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

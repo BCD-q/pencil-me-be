@@ -28,7 +28,7 @@ public class CreateTodoRequest {
     @Schema(description = "생성할 할 일의 내용", example = "키노트로 발표")
     private String contents;
 
-    @NotBlank
+    @NotNull
     @Schema(description = "생성할 할 일을 담을 그룹 식별자", example = "1")
     private Long categoryId;
 
