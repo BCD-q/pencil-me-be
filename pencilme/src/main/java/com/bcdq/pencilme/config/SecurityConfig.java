@@ -25,9 +25,8 @@ public class SecurityConfig {
     private static final String[] PERMIT_URI_ARRAY = {
             "/v3/api-docs/**",
             "/swagger-ui/**",
-            "/api/v1/members/login",
-            "/api/v1/members",
-            "/api/v1/**"
+            "/api/v1/members/sign-in",
+            "/api/v1/members/sign-up",
     };
 
     private final TokenProvider tokenProvider;

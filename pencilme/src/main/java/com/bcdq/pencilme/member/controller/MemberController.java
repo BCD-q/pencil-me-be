@@ -1,6 +1,7 @@
 package com.bcdq.pencilme.member.controller;
 
 import com.bcdq.pencilme.common.CommonResponse;
+import com.bcdq.pencilme.member.domain.Member;
 import com.bcdq.pencilme.member.dto.request.SignInMemberRequest;
 import com.bcdq.pencilme.member.dto.request.SignUpMemberRequest;
 import com.bcdq.pencilme.member.dto.request.UpdateMemberRequest;
@@ -10,6 +11,7 @@ import com.bcdq.pencilme.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,7 +26,6 @@ import static com.bcdq.pencilme.common.ResponseType.*;
  *
  * @author Juwon Lee
  */
-@CrossOrigin // temp
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -32,13 +33,13 @@ public class MemberController {
     private final MemberService memberService;
 
     /**
-     * POST /api/v1/members
+     * POST /api/v1/members/sign-up
      * 회원 가입 메서드
      *
      * @param createMemberRequest 생성할 회원의 정보를 담은 요청 DTO
      * @return CommonResponse<MemberResponse> 기본 응답 + 회원 응답 DTO
      */
-    @PostMapping("/v1/members")
+    @PostMapping("/v1/members/sign-up")
     @Operation(summary = "회원 가입", description = "회원 가입을 위한 정보를 Body에 담아서 보내주세요")
     public ResponseEntity<CommonResponse<MemberResponse>> addMember(@Valid @RequestBody SignUpMemberRequest createMemberRequest) {
         MemberResponse memberResponse = memberService.createMember(createMemberRequest);
@@ -46,13 +47,13 @@ public class MemberController {
     }
 
     /**
-     * POST /api/v1/members/login
+     * POST /api/v1/members/sign-in
      * 회원 로그인 메서드
      *
      * @param signInMemberRequest 로그인할 회원의 정보를 담은 요청 DTO
      * @return CommonResponse<MemberSignInResponse> 기본 응답 + 회원 로그인 응답 DTO
      */
-    @PostMapping("/v1/members/login")
+    @PostMapping("/v1/members/sign-in")
     @Operation(summary = "회원 로그인", description = "회원 로그인을 위한 정보를 Body에 담아서 보내주세요")
     public ResponseEntity<CommonResponse<MemberSignInResponse>> login(@Valid @RequestBody SignInMemberRequest signInMemberRequest) {
         MemberSignInResponse memberSignInResponse = memberService.login(signInMemberRequest);
@@ -60,26 +61,25 @@ public class MemberController {
     }
 
     /**
-     * GET /api/v1/members/:memberId
+     * GET /api/v1/members
      * 회원 정보 조회 메서드
      *
-     * @param memberId 조회할 회원의 id값
      * @return CommonResponse<MemberResponse> 기본 응답 + 회원 응답 DTO
      */
-    @GetMapping("/v1/members/{memberId}")
+    @GetMapping("/v1/members")
     @Operation(summary = "회원 조회", description = "조회 할 회원의 식별자를 PathVariable로 보내주세요")
-    public ResponseEntity<CommonResponse<MemberResponse>> getMember(@PathVariable("memberId") Long memberId) {
-        MemberResponse memberResponse = memberService.readMember(memberId);
+    public ResponseEntity<CommonResponse<MemberResponse>> getMember(@AuthenticationPrincipal Member currentMember) {
+        MemberResponse memberResponse = memberService.readMember(currentMember.getId());
         return CommonResponse.of(회원조회, memberResponse);
     }
 
     /**
-     * GET /api/v1/members
+     * GET /api/v1/members/all
      * 회원 전체 정보 조회 메서드 (관리자용)
      *
      * @return CommonResponse<List<MemberResponse>> 기본 응답 + 회원 응답 DTO 타입 리스트
      */
-    @GetMapping("/v1/members")
+    @GetMapping("/v1/members/all")
     @Operation(summary = "회원 전체 조회(관리자용)", description = "회원 전체의 정보를 가져옵니다")
     public ResponseEntity<CommonResponse<List<MemberResponse>>> getMemberList() {
         List<MemberResponse> memberResponse = memberService.readMemberList();
@@ -87,30 +87,28 @@ public class MemberController {
     }
 
     /**
-     * PUT /api/v1/members/:memberId
+     * PUT /api/v1/members
      * 회원 정보 수정 메서드
      *
-     * @param memberId 수정할 회원의 id값
      * @return CommonResponse<MemberResponse> 기본 응답 + 회원 응답 DTO
      */
-    @PutMapping("/v1/members/{memberId}")
+    @PutMapping("/v1/members")
     @Operation(summary = "회원 정보 수정", description = "정보를 수정할 회원의 식별자는 PathVaraible로, 수정 할 정보는 Body에 담아서 보내주세요")
-    public ResponseEntity<CommonResponse<MemberResponse>> modifyMember(@PathVariable("memberId") Long memberId, @Valid @RequestBody UpdateMemberRequest updateMemberRequest) {
-        MemberResponse memberResponse = memberService.updateMember(memberId, updateMemberRequest);
+    public ResponseEntity<CommonResponse<MemberResponse>> modifyMember(@Valid @RequestBody UpdateMemberRequest updateMemberRequest, @AuthenticationPrincipal Member currentMember) {
+        MemberResponse memberResponse = memberService.updateMember(currentMember.getId(), updateMemberRequest);
         return CommonResponse.of(회원수정, memberResponse);
     }
 
     /**
-     * DELETE /api/v1/members/:memberId
+     * DELETE /api/v1/members
      * 회원 탈퇴 메서드
      *
-     * @param memberId 삭제할 회원의 id값
      * @return CommonResponse 기본 응답
      */
-    @DeleteMapping("/v1/members/{memberId}")
+    @DeleteMapping("/v1/members")
     @Operation(summary = "회원 탈퇴", description = "탈퇴할 회원의 식별자를 PathVariable로 보내주세요")
-    public ResponseEntity<CommonResponse<String>> removeMember(@PathVariable("memberId") Long memberId) {
-        memberService.deleteMember(memberId);
+    public ResponseEntity<CommonResponse<String>> removeMember(@AuthenticationPrincipal Member currentMember) {
+        memberService.deleteMember(currentMember.getId());
         return CommonResponse.from(회원탈퇴);
     }
 }

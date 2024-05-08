@@ -44,16 +44,16 @@ public class TodoController {
     }
 
     /**
-     * GET /api/v1/todos/:todoId
-     * 할 일 단건 조회 메서드
+     * GET /api/v1/todos/:categoryId
+     * 할 일 그룹으로 조회 메서드
      *
-     * @param todoId 조회할 할 일의 id 값
-     * @return CommonResponse<TodoResponse> 기본 응답 + 할 일 응답 DTO
+     * @param categoryId 조회할 그룹의 id 값
+     * @return CommonResponse<List<TodoResponse>> 기본 응답 + 할 일 응답 DTO 리스트
      */
-    @GetMapping("/v1/todos/{todoId}")
-    @Operation(summary = "할 일 조회", description = "조회할 할 일의 식별자를 PathVariable로 보내주세요")
-    public ResponseEntity<CommonResponse<TodoResponse>> getTodo(@PathVariable("todoId") Long todoId) {
-        TodoResponse todoResponse = todoService.readTodo(todoId);
+    @GetMapping("/v1/todos/{categoryId}")
+    @Operation(summary = "할 일 조회", description = "조회할 그룹의 식별자를 PathVariable로 보내주세요")
+    public ResponseEntity<CommonResponse<List<TodoResponse>>> getTodo(@PathVariable("categoryId") Long categoryId) {
+        List<TodoResponse> todoResponse = todoService.readTodo(categoryId);
         return CommonResponse.of(할일조회, todoResponse);
     }
 
@@ -65,8 +65,8 @@ public class TodoController {
      */
     @GetMapping("/v1/todos")
     @Operation(summary = "할 일 전체 조회", description = "모든 할 일을 조회합니다")
-    public ResponseEntity<CommonResponse<List<TodoResponse>>> getTodolist() {
-        List<TodoResponse> todoResponse = todoService.readTodolist();
+    public ResponseEntity<CommonResponse<List<TodoResponse>>> getTodolist(@AuthenticationPrincipal Member CurrentMember) {
+        List<TodoResponse> todoResponse = todoService.readTodolist(CurrentMember);
         return CommonResponse.of(할일조회, todoResponse);
     }
 

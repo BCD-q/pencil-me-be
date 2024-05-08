@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class TodoService {
     private final TodoRepository todoRepository;
     private final CategoryRepository categoryRepository;
-    private final MemberRepository memberRepository;
 
     public TodoResponse createTodo(CreateTodoRequest createTodoRequest, Member currentMember) {
         Category category = findByCategoryId(createTodoRequest.getCategoryId());
@@ -29,12 +28,15 @@ public class TodoService {
         return TodoResponse.from(todo);
     }
 
-    public TodoResponse readTodo(Long todoId) {
-        return TodoResponse.from(findByTodoId(todoId));
+    public List<TodoResponse> readTodo(Long categoryId) {
+        Category category = findByCategoryId(categoryId);
+        return todoRepository.findAllByCategory(category).stream()
+                .map(TodoResponse::from)
+                .collect(Collectors.toList());
     }
 
-    public List<TodoResponse> readTodolist() {
-        return todoRepository.findAll().stream()
+    public List<TodoResponse> readTodolist(Member member) {
+        return todoRepository.findAllByMember(member).stream()
                 .map(TodoResponse::from)
                 .collect(Collectors.toList());
     }
