@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -33,8 +35,14 @@ public class CategoryService {
      */
     public CategoryResponse createCategory(CreateCategoryRequest createCategoryRequest, Member currentMember) {
         Category category = CreateCategoryRequest.toEntity(createCategoryRequest, currentMember);
-        categoryRepository.save(category);
-        return CategoryResponse.from(category);
+        List<Category> categoryList = categoryRepository.findAll();
+        Optional<Category> foundCategory = categoryList.stream().filter(entity -> Objects.equals(entity.getName(), category.getName())).findAny();
+        if (foundCategory.isEmpty()) {
+            categoryRepository.save(category);
+            return CategoryResponse.from(category);
+        } else {
+            return CategoryResponse.from(foundCategory.get());
+        }
     }
 
     /**
