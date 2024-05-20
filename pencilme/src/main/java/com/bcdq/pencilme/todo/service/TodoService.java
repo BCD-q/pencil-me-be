@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
 
     public TodoResponse createTodo(CreateTodoRequest createTodoRequest, Member currentMember) {
@@ -28,9 +29,10 @@ public class TodoService {
         return TodoResponse.from(todo);
     }
 
-    public List<TodoResponse> readTodo(Long categoryId) {
+    public List<TodoResponse> readTodo(Long categoryId, Long memberId) {
+        Member member = findByMemberId(memberId);
         Category category = findByCategoryId(categoryId);
-        return todoRepository.findAllByCategory(category).stream()
+        return todoRepository.findAllByCategoryAndMember(category, member).stream()
                 .map(TodoResponse::from)
                 .collect(Collectors.toList());
     }
@@ -43,7 +45,8 @@ public class TodoService {
 
     public TodoResponse updateTodo(Long todoId, UpdateTodoRequest updateTodoRequest) {
         Todo todo = findByTodoId(todoId);
-        todo.updateTodo(updateTodoRequest.getTitle(), updateTodoRequest.getContents(), updateTodoRequest.getDeadline(), updateTodoRequest.getIsFinished());
+        Category category = findByCategoryId(updateTodoRequest.getCategoryId());
+        todo.updateTodo(category, updateTodoRequest.getTitle(), updateTodoRequest.getContents(), updateTodoRequest.getDeadline(), updateTodoRequest.getIsFinished(), updateTodoRequest.getIsImportant());
         todoRepository.save(todo);
         return TodoResponse.from(todo);
     }
@@ -54,6 +57,11 @@ public class TodoService {
 
     private Todo findByTodoId(Long id) {
         return todoRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+    }
+
+    private Member findByMemberId(Long id) {
+        return memberRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
     }
 

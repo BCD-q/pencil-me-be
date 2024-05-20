@@ -31,7 +31,7 @@ jib {
 		image = "eclipse-temurin:11-jre"
 		platforms {
 			platform {
-				architecture = 'arm64'
+				architecture = 'amd64'
 				os = 'linux'
 			}
 		}

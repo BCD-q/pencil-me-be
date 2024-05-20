@@ -27,6 +27,8 @@ public class SecurityConfig {
             "/swagger-ui/**",
             "/api/v1/members/sign-in",
             "/api/v1/members/sign-up",
+            "/api/v1/interests/**",
+            "/api/v1/interests-mapping"
     };
 
     private final TokenProvider tokenProvider;

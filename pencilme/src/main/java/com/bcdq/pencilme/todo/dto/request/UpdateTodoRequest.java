@@ -1,5 +1,6 @@
 package com.bcdq.pencilme.todo.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,10 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UpdateTodoRequest {
+
+    @NotNull
+    private Long categoryId;
+
     @NotBlank
     private String title;
 
@@ -27,4 +32,7 @@ public class UpdateTodoRequest {
 
     @NotNull
     private Boolean isFinished;
+
+    @NotNull
+    private Boolean isImportant;
 }

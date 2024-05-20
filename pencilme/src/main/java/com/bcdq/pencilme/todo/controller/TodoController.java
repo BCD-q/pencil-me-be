@@ -52,8 +52,9 @@ public class TodoController {
      */
     @GetMapping("/v1/todos/{categoryId}")
     @Operation(summary = "할 일 조회", description = "조회할 그룹의 식별자를 PathVariable로 보내주세요")
-    public ResponseEntity<CommonResponse<List<TodoResponse>>> getTodo(@PathVariable("categoryId") Long categoryId) {
-        List<TodoResponse> todoResponse = todoService.readTodo(categoryId);
+    public ResponseEntity<CommonResponse<List<TodoResponse>>> getTodo(@PathVariable("categoryId") Long categoryId, @AuthenticationPrincipal Member currentMember) {
+        Long memberId = currentMember.getId();
+        List<TodoResponse> todoResponse = todoService.readTodo(categoryId, memberId);
         return CommonResponse.of(할일조회, todoResponse);
     }
 

@@ -36,20 +36,25 @@ public class Todo extends BaseTimeEntity {
 
     private Boolean isFinished;
 
+    private Boolean isImportant;
+
     @Builder
-    public Todo(Category category, Member member, String title, String contents, LocalDateTime deadline, Boolean isFinished) {
+    private Todo(Category category, Member member, String title, String contents, LocalDateTime deadline, Boolean isFinished, Boolean isImportant) {
         this.category = category;
         this.member = member;
         this.title = title;
         this.contents = contents;
         this.deadline = deadline;
         this.isFinished = isFinished;
+        this.isImportant = isImportant;
     }
 
-    public void updateTodo(String title, String contents, LocalDateTime deadline, Boolean isFinished) {
+    public void updateTodo(Category category, String title, String contents, LocalDateTime deadline, Boolean isFinished, Boolean isImportant) {
+        this.category = category;
         this.title = title;
         this.contents = contents;
         this.deadline = deadline;
         this.isFinished = isFinished;
+        this.isImportant = isImportant;
     }
 }
