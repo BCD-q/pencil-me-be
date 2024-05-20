@@ -10,6 +10,9 @@ import com.bcdq.pencilme.communicator.dto.response.CommunicateSummaryResponse;
 import com.bcdq.pencilme.communicator.dto.response.CommunicateTodoResponse;
 import com.bcdq.pencilme.config.security.JwtAuthenticationFilter;
 import com.bcdq.pencilme.config.security.TokenProvider;
+import com.bcdq.pencilme.interest.repository.InterestRepository;
+import com.bcdq.pencilme.interest_mapping.domain.InterestMapping;
+import com.bcdq.pencilme.interest_mapping.repository.InterestMappingRepository;
 import com.bcdq.pencilme.member.domain.Member;
 import com.bcdq.pencilme.member.repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,6 +36,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 서버 간 통신 관련 Service
@@ -45,6 +49,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommunicateService {
     private final MemberRepository memberRepository;
+    private final InterestMappingRepository interestMappingRepository;
     private final WebClient.Builder webClientBuilder;
     private final ObjectMapper objectMapper;
     private final TokenProvider tokenProvider;
@@ -94,7 +99,11 @@ public class CommunicateService {
         return CommunicateSummaryResponse.of(title, contents);
     }
 
-    public List<CommunicateMotivationResponse> createMotivation(int start, CommnuicateMotivationRequest commnuicateMotivationRequest) throws JsonProcessingException {
+    public List<CommunicateMotivationResponse> createMotivation(int start, Member member) throws JsonProcessingException {
+        CommnuicateMotivationRequest commnuicateMotivationRequest = CommnuicateMotivationRequest.from(interestMappingRepository.findAllByMember(member).stream()
+                .map(interestMapping -> interestMapping.getInterest().getKeyword())
+                .collect(Collectors.toList()));
+
         WebClient webClient = webClientBuilder
                 .baseUrl(baseurl)
                 .build();

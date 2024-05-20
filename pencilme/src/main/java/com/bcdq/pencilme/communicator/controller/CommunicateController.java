@@ -83,8 +83,8 @@ public class CommunicateController {
      */
     @PostMapping("/v1/communicator/inspiration")
     @Operation(summary = "동기 탭 생성 요청", description = "동기 탭 생성을 위해 AI Server에 전송할 키워드들을 입력해주세요")
-    public ResponseEntity<CommonResponse<List<CommunicateMotivationResponse>>> requestMotivation(@RequestParam("start") int start, @Valid @RequestBody CommnuicateMotivationRequest communicateMotivationRequest) throws JsonProcessingException {
-        List<CommunicateMotivationResponse> communicateMotivationResponses = communicateService.createMotivation(start, communicateMotivationRequest);
+    public ResponseEntity<CommonResponse<List<CommunicateMotivationResponse>>> requestMotivation(@RequestParam("start") int start, @AuthenticationPrincipal Member currentMember) throws JsonProcessingException {
+        List<CommunicateMotivationResponse> communicateMotivationResponses = communicateService.createMotivation(start, currentMember);
         return CommonResponse.of(동기탭가져오기완료, communicateMotivationResponses);
     }
 }
