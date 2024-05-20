@@ -29,7 +29,7 @@ public class AnalysisService {
         analysisResponses.add(AnalysisResponse.of("오늘", calculateGoal(todoRepository.findAllByMember(member))));
 
         log.info("주요 목표 점검 = {}", calculateGoal(todoRepository.findAllByMemberAndIsImportant(member, true)));
-        analysisResponses.add(AnalysisResponse.of("주요 목표", calculateGoal(todoRepository.findAllByMember(member))));
+        analysisResponses.add(AnalysisResponse.of("주요 목표", calculateGoal(todoRepository.findAllByMemberAndIsImportant(member, true))));
 
         log.info("===============");
         List<Category> categories = categoryRepository.findAllByMember(member);
