@@ -61,6 +61,20 @@ public class CategoryController {
     }
 
     /**
+     * GET /api/v1/categories/:categoryName
+     * 그룹 단건 조회 메서드
+     *
+     * @param categoryName 조회할 그룹의 id 값
+     * @return CommonResponse<CategoryResponse> 기본 응답 + 그룹 응답 DTO
+     */
+    @GetMapping("/v1/categories/name/{categoryName}")
+    @Operation(summary = "그룹 단건 조회", description = "조회할 그룹의 이름을 PathVariable로 보내주세요")
+    public ResponseEntity<CommonResponse<CategoryResponse>> getCategoryWithName(@PathVariable("categoryName") String categoryName, @AuthenticationPrincipal Member currentMember) {
+        CategoryResponse categoryResponse = categoryService.readCategory(categoryName, currentMember);
+        return CommonResponse.of(그룹조회, categoryResponse);
+    }
+
+    /**
      * GET /api/v1/categories
      * 그룹 전체 조회 메서드
      *
@@ -68,8 +82,8 @@ public class CategoryController {
      */
     @GetMapping("/v1/categories")
     @Operation(summary = "그룹 전체 조회", description = "모든 그룹을 조회합니다")
-    public ResponseEntity<CommonResponse<List<CategoryResponse>>> getCategory() {
-        List<CategoryResponse> categoryResponse = categoryService.readCategoryList();
+    public ResponseEntity<CommonResponse<List<CategoryResponse>>> getCategory(@AuthenticationPrincipal Member currentMember) {
+        List<CategoryResponse> categoryResponse = categoryService.readCategoryList(currentMember.getId());
         return CommonResponse.of(그룹조회, categoryResponse);
     }
 

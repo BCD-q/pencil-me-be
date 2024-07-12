@@ -24,15 +24,17 @@ public enum ResponseType {
     그룹수정(200, "CATEGORY_UPDATED", "그룹 수정 완료"),
     그룹삭제(200, "CATEGORY_DELETED", "그룹 삭제 완료"),
 
-    // TodoList
-    할일생성(201, "TODOLIST_CREATED", "할 일 생성 완료"),
-    할일조회(200, "TODOLIST_FOUND", "할 일 조회 완료"),
-    할일수정(200, "TODOLIST_UPDATED", "할 일 수정 완료"),
-    할일삭제(200, "TODOLIST_DELETED", "할 일 삭제 완료"),
+    // Todo
+    할일생성(201, "TODO_CREATED", "할 일 생성 완료"),
+    할일조회(200, "TODO_FOUND", "할 일 조회 완료"),
+    할일수정(200, "TODO_UPDATED", "할 일 수정 완료"),
+    할일삭제(200, "TODO_DELETED", "할 일 삭제 완료"),
 
     // Communicator
-    할일등록요청완료(201, "TODO_REQUEST_SENT", "일정 등록 요청 완료"),
+    할일등록요청완료(201, "TODO_REQUEST_FINISHED", "할 일 등록 요청 완료"),
+    동기탭가져오기완료(201, "MOTIVATION_GENERATED", "동기 탭 요소 가져오기 완료"),
     요약완료(200, "SUMMARIZE_FINISHED", "요약 완료"),
+    요약할일등록완료(201, "SUMMARIZE_TO_TODO", "요약을 할 일로 등록 요청 완료"),
 
     // Interest
     관심사전체조회(200, "INTEREST_FIND_ALL", "관심사 전체조회 완료"),
@@ -43,7 +45,10 @@ public enum ResponseType {
     // Interest Mapping
     여러관심사멤버매핑(200, "RELATE_SUCCESS", "여러 관심사와 멤버간 매핑 성공"),
     사용자의모든관심사찾기(200, "FIND_RELATED_INTEREST", "멤버와 연관되어 있는 관심사를 모두 불러왔습니다."),
-    여러관심사매핑해제(200, "DISSOCIATED_SUCCESS", "여러 관심사와 멤버간 매핑을 성공적으로 해제했습니다.");
+    여러관심사매핑해제(200, "DISSOCIATED_SUCCESS", "여러 관심사와 멤버간 매핑을 성공적으로 해제했습니다."),
+
+    // Analysis
+    목표점검(200, "GOAL_ANALYSIS", "목표 점검 진척도를 가져왔습니다.");
 
     private final int status;
     private final String responseCode;

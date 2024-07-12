@@ -1,6 +1,8 @@
 package com.bcdq.pencilme.communicator.controller;
 
+import com.bcdq.pencilme.communicator.dto.request.CommnuicateMotivationRequest;
 import com.bcdq.pencilme.communicator.dto.request.TodoRequest;
+import com.bcdq.pencilme.communicator.dto.response.CommunicateMotivationResponse;
 import com.bcdq.pencilme.communicator.dto.response.CommunicateSummaryResponse;
 import com.bcdq.pencilme.communicator.dto.response.CommunicateTodoResponse;
 import com.bcdq.pencilme.communicator.service.CommunicateService;
@@ -14,9 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.bcdq.pencilme.common.ResponseType.*;
 
@@ -34,28 +38,53 @@ public class CommunicateController {
     private final CommunicateService communicateService;
 
     /**
-     * POST /api/v1/language
+     * POST /api/v1/communicator/language
      *
      * @param todoRequest 등록할 할 일 내용
      * @return CommonResponse<CommunicateTodoResponse> 기본 응답 + 생성된 할 일 응답 DTO
      */
-    @PostMapping("/v1/language")
+    @PostMapping("/v1/communicator/language")
     @Operation(summary = "할 일 등록 요청", description = "할 일 등록을 위해 AI Server에 전송할 할 일을 입력해주세요")
-    public ResponseEntity<CommonResponse<CommunicateTodoResponse>> requestTodo(@Valid @RequestBody TodoRequest todoRequest, @AuthenticationPrincipal Member currentMember) throws JsonProcessingException {
+    public ResponseEntity<CommonResponse<CommunicateTodoResponse>> requestTodo(@Valid @RequestBody TodoRequest todoRequest, @AuthenticationPrincipal Member currentMember, HttpServletRequest request) throws JsonProcessingException {
         Long memberId = currentMember.getId();
-        CommunicateTodoResponse communicateTodoResponse = communicateService.createTodo(todoRequest, memberId);
+        CommunicateTodoResponse communicateTodoResponse = communicateService.createTodo(todoRequest, memberId, request);
         return CommonResponse.of(할일등록요청완료, communicateTodoResponse);
     }
 
     /**
-     * GET /api/v1/summary
+     * GET /api/v1/communicator/summary
      *
      * @param url 요약할 url 링크
      * @return CommonResponse<CommunicateSummaryResponse> 기본 응답 + 생성된 요약문 응답 DTO
      */
-    @GetMapping("/v1/summary")
+    @GetMapping("/v1/communicator/summary")
     public ResponseEntity<CommonResponse<CommunicateSummaryResponse>> requestSummary(@RequestParam String url) throws IOException {
         CommunicateSummaryResponse communicateSummaryResponse = communicateService.readSummary(url);
         return CommonResponse.of(요약완료, communicateSummaryResponse);
+    }
+
+    /**
+     * POST /api/v1/communicator/summary
+     *
+     * @param url 요약할 url 링크
+     * @return CommonResponse<CommunicateSummaryResponse> 기본 응답 + 생성된 요약문 응답 DTO
+     */
+    @PostMapping("/v1/communicator/summary")
+    public ResponseEntity<CommonResponse<CommunicateSummaryResponse>> requestSummary2Todo(@RequestParam String url, @AuthenticationPrincipal Member currentMember, HttpServletRequest httpServletRequest) throws IOException {
+        CommunicateSummaryResponse communicateSummaryResponse = communicateService.createSummary(url, currentMember, httpServletRequest);
+        return CommonResponse.of(요약할일등록완료, communicateSummaryResponse);
+    }
+
+    /**
+     * POST /api/v1/communicator/inspiration
+     *
+     * @param start 조회할 페이지 번호
+     * @return CommonResponse<CommunicateTodoResponse> 기본 응답 + 생성된 할 일 응답 DTO
+     */
+    @PostMapping("/v1/communicator/inspiration")
+    @Operation(summary = "동기 탭 생성 요청", description = "동기 탭 생성을 위해 AI Server에 전송할 키워드들을 입력해주세요")
+    public ResponseEntity<CommonResponse<List<CommunicateMotivationResponse>>> requestMotivation(@RequestParam("start") int start, @AuthenticationPrincipal Member currentMember) throws JsonProcessingException {
+        List<CommunicateMotivationResponse> communicateMotivationResponses = communicateService.createMotivation(start, currentMember);
+        return CommonResponse.of(동기탭가져오기완료, communicateMotivationResponses);
     }
 }

@@ -28,17 +28,13 @@ public class CreateTodoRequest {
     @Schema(description = "생성할 할 일의 내용", example = "키노트로 발표")
     private String contents;
 
-    @NotBlank
+    @NotNull
     @Schema(description = "생성할 할 일을 담을 그룹 식별자", example = "1")
     private Long categoryId;
 
     @NotNull
     @Schema(description = "생성할 할 일의 마감기한", example = "2024-06-01")
     private LocalDateTime deadline;
-
-    @NotNull
-    @Schema(description = "생성할 할 일의 완료 여부", example = "false")
-    private Boolean isFinished;
 
     /**
      * 할 일 생성을 위한 정적 팩터리 메서드
@@ -55,7 +51,8 @@ public class CreateTodoRequest {
                 .title(createTodoRequest.getTitle())
                 .contents(createTodoRequest.getContents())
                 .deadline(createTodoRequest.getDeadline())
-                .isFinished(createTodoRequest.getIsFinished())
+                .isFinished(false)
+                .isImportant(false)
                 .build();
     }
 }

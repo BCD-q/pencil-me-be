@@ -27,46 +27,44 @@ public class InterestMappingController {
     private final InterestMappingService interestMappingService;
 
     /**
-     * GET /v1/interestIds-mapping/{interestIds}
+     * POST /v1/interests-mapping
      * 사용자 <-> 관심사 매핑 메서드
      *
-     * @param currentMember 현재 로그인한 사용자
+     * @param memberId 현재 사용자 id
      * @param interestIds 관심사들의 id 값
      * @return CommonResponse<String> 기본 응답
      */
     @Operation(summary = "Member와 Interest간 매핑")
-    @GetMapping("/v1/interestIds-mapping/{interestIds}")
-    public ResponseEntity<CommonResponse<String>> relatingObject(@AuthenticationPrincipal Member currentMember, @PathVariable("interestIds") List<Long> interestIds) {
-        Long memberId = currentMember.getId();
+    @PostMapping("/v1/interests-mapping")
+    public ResponseEntity<CommonResponse<String>> relatingObject(@RequestParam("memberId") Long memberId, @RequestParam("interestIds") List<Long> interestIds) {
         interestMappingService.relatingObjects(memberId, interestIds);
         return CommonResponse.from(ResponseType.여러관심사멤버매핑);
     }
 
     /**
-     * GET /api/v1/interest-mapping
+     * GET /api/v1/interests-mapping
      * 사용자와 매핑된 관심사 전체 조회 메서드
      *
-     * @param currentMember 현재 로그인한 사용자
+     * @param memberId 현재 사용자의 id
      * @return CommonResponse<List<InterestMappingResponse>> 기본 응답 + 관심사 매핑 응답 DTO 리스트
      */
     @Operation(summary = "멤버와 연관된 Interest를 모두 찾기")
-    @GetMapping("/v1/interest-mapping")
-    public ResponseEntity<CommonResponse<List<InterestMappingResponse>>> findAllByMember(@AuthenticationPrincipal Member currentMember) {
-        Long memberId = currentMember.getId();
+    @GetMapping("/v1/interests-mapping")
+    public ResponseEntity<CommonResponse<List<InterestMappingResponse>>> findAllByMember(@RequestParam("memberId") Long memberId) {
         return CommonResponse.of(ResponseType.사용자의모든관심사찾기, interestMappingService.findAllByMember(memberId));
     }
 
     /**
-     * DELETE /api/v1/interestIds-mapping
+     * DELETE /api/v1/interests-mapping
      * 사용자 <-> 관심사 매핑 해제 메서드
      *
-     * @param currentMember 현재 로그인한 사용자
+     * @param currentMember 현재 사용자
      * @param interestIds 관심사들의 id 값
      * @return CommonResponse<String> 기본 응답
      */
     @Operation(summary = "Member와 Interest간의 연관관계 해제")
-    @DeleteMapping("/v1/interestIds-mapping")
-    public ResponseEntity<CommonResponse<String>> dissociateObject(@AuthenticationPrincipal Member currentMember, @RequestParam("interestIds") List<Long> interestIds) {
+    @DeleteMapping("/v1/interests-mapping/{interestIds}")
+    public ResponseEntity<CommonResponse<String>> dissociateObject(@AuthenticationPrincipal Member currentMember, @PathVariable("interestIds") List<Long> interestIds) {
         Long memberId = currentMember.getId();
         interestMappingService.dissociateObjects(memberId, interestIds);
         return CommonResponse.from(ResponseType.여러관심사매핑해제);

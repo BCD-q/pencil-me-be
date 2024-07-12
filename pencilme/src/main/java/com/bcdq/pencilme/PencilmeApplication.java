@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(
 		servers = {
-				@Server(url = "https://capstone.na2ru2.me", description = "Server URL"),
+				@Server(url = "https://pencilme.inuappcenter.kr", description = "Server URL"),
 				@Server(url = "http://localhost:8080",description = "Local URL")
 		}
 )

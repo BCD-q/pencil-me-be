@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.17'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id 'com.google.cloud.tools.jib' version '3.4.0'
+	id 'com.google.cloud.tools.jib' version '3.4.2'
 }
 
 group = 'com.bcdq'
@@ -21,7 +21,7 @@ configurations {
 jib {
 	to {
 		image = DockerContainerName
-		tags = [ "latest" ]
+		tags = [ "test" ]
 		auth {
 			username = DockerUsername
 			password = DockerPassword
@@ -31,7 +31,7 @@ jib {
 		image = "eclipse-temurin:11-jre"
 		platforms {
 			platform {
-				architecture = 'arm64'
+				architecture = 'amd64'
 				os = 'linux'
 			}
 		}

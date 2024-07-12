@@ -21,6 +21,9 @@ public class TodoResponse {
     @Schema(description = "그룹 id값", example = "1")
     private final Long categoryId;
 
+    @Schema(description = "그룹명", example = "컴퓨터")
+    private final String categoryName;
+
     @Schema(description = "회원 id값", example = "1")
     private final Long memberId;
 
@@ -36,26 +39,33 @@ public class TodoResponse {
     @Schema(description = "완료 여부", example = "false")
     private final Boolean isFinished;
 
+    @Schema(description = "중요 여부", example = "false")
+    private final Boolean isImportant;
+
     @Builder(access = AccessLevel.PRIVATE)
-    private TodoResponse(Long id, Long categoryId, Long memberId, String title, String contents, LocalDateTime deadline, Boolean isFinished) {
+    private TodoResponse(Long id, Long categoryId, String categoryName, Long memberId, String title, String contents, LocalDateTime deadline, Boolean isFinished, Boolean isImportant) {
         this.id = id;
         this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.memberId = memberId;
         this.title = title;
         this.contents = contents;
         this.deadline = deadline;
         this.isFinished = isFinished;
+        this.isImportant = isImportant;
     }
 
     public static TodoResponse from(Todo todo) {
         return TodoResponse.builder()
                 .id(todo.getId())
                 .categoryId(todo.getCategory().getId())
+                .categoryName(todo.getCategory().getName())
                 .memberId(todo.getMember().getId())
                 .title(todo.getTitle())
                 .contents(todo.getContents())
                 .deadline(todo.getDeadline())
                 .isFinished(todo.getIsFinished())
+                .isImportant(todo.getIsImportant())
                 .build();
     }
 }
